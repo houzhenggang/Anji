@@ -10,7 +10,7 @@
         android:layout_height="55dp"
         android:background="@color/title_background"
         android:gravity="center_vertical" >
-
+<!-- 
         <ImageView
             android:id="@+id/img_title"
             android:layout_width="wrap_content"
@@ -29,6 +29,14 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/more_button_selector" />
+ -->
+ 		<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/tab_group"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
     </RelativeLayout>
 
 

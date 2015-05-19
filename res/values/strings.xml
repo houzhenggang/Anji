@@ -88,6 +88,7 @@
     <string name="inputsecurity_title">填写验证码</string>
     <string name="set_password">密码设置</string>
     <string name="tab_main">主界面</string>
+    <string name="tab_group">分组</string>
     <string name="tab_switch">开关</string>
     <string name="tab_sense">传感</string>
     <string name="tab_camera">摄像头</string>
@@ -302,6 +303,7 @@
     <string name="had_send_message">已发送验证短信到</string>
     <string name="gateway_is_current">此网关已是当前网关</string>
     <string name="input_gorup_name">请输入分组名称</string>
+    <string name="input_scene_name">请输入情景名称</string>
     <string name="remove_gateway_sucess">解绑网关成功</string>
     <string name="remove_gateway_fail">无法解绑当前网关</string>
     <string name="name_hint">6到10个字符或数字组成</string>

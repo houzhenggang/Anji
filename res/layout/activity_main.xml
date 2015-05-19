@@ -13,8 +13,7 @@
             android:id="@+id/tab_content"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.0"
-            />
+            android:layout_weight="1.0" />
 
         <RadioGroup
             android:id="@+id/tabs_rg"
@@ -24,61 +23,76 @@
             android:orientation="horizontal" >
 
             <RadioButton
-                android:id="@+id/tab_rb_main"
+                android:id="@+id/tab_rb_scene"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
+                android:background="@drawable/tab_bg"
                 android:button="@null"
                 android:checked="true"
-                android:background="@drawable/tab_bg"
                 android:drawableTop="@drawable/selector_main"
                 android:gravity="center"
                 android:paddingTop="3dp"
                 android:singleLine="true"
                 android:text="@string/tab_main"
-                android:textColor="@color/title_background"
+                android:textColor="@drawable/radio_text_color"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/tab_rb_main"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/tab_bg"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_main"
+                android:gravity="center"
+                android:paddingTop="3dp"
+                android:singleLine="true"
+                android:text="@string/tab_group"
+                android:textColor="@drawable/radio_text_color"
                 android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/tab_rb_bluetooth"
-                android:background="@drawable/tab_bg"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
+                android:background="@drawable/tab_bg"
                 android:button="@null"
                 android:drawableTop="@drawable/selector_switch"
                 android:gravity="center"
                 android:paddingTop="3dp"
                 android:singleLine="true"
                 android:text="@string/tab_switch"
-                android:textColor="@color/regiest_text"
+                android:textColor="@drawable/radio_text_color"
                 android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/tab_rb_set"
                 android:layout_height="wrap_content"
-                android:background="@drawable/tab_bg"
                 android:layout_weight="10"
+                android:background="@drawable/tab_bg"
                 android:button="@null"
                 android:drawableTop="@drawable/selector_sense"
                 android:gravity="center"
                 android:paddingTop="3dp"
                 android:singleLine="true"
                 android:text="@string/tab_sense"
-                android:textColor="@color/regiest_text"
+                android:textColor="@drawable/radio_text_color"
                 android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/tab_rb_more"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
+                android:background="@drawable/tab_bg"
                 android:button="@null"
                 android:drawableTop="@drawable/selector_camera"
                 android:gravity="center"
-                android:background="@drawable/tab_bg"
                 android:paddingTop="3dp"
                 android:singleLine="true"
                 android:text="@string/tab_camera"
-                android:textColor="@color/regiest_text"
+                android:textColor="@drawable/radio_text_color"
                 android:textSize="18sp" />
         </RadioGroup>
     </LinearLayout>
+
 </LinearLayout>

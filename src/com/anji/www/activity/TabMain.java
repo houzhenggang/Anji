@@ -39,7 +39,7 @@ public class TabMain extends Fragment implements OnClickListener, BaseFragment
 	private static final String TAG = TabMain.class.getName();
 
 	MainActivity activity;
-	private Button bt_more;
+//	private Button bt_more;
 	private GridView gv_group;
 	private GroupListAdapter groupAdapter;
 	public static boolean isChangeName = false;
@@ -88,11 +88,11 @@ public class TabMain extends Fragment implements OnClickListener, BaseFragment
 		int width = metric.widthPixels; // ÆÁÄ»¿í¶È£¨ÏñËØ£©
 		int height = metric.heightPixels; // ÆÁÄ»¸ß¶È£¨ÏñËØ£©
 		int vvHight = (int) (width * 150.00 / 640.00);
-		bt_more = (Button) activity.findViewById(R.id.bt_more);
+//		bt_more = (Button) activity.findViewById(R.id.bt_more);
 		gv_group = (GridView) activity.findViewById(R.id.gv_group);
 		groupAdapter = new GroupListAdapter(activity, MainActivity.groupList);
 		gv_group.setAdapter(groupAdapter);
-		bt_more.setOnClickListener(this);
+//		bt_more.setOnClickListener(this);
 		gv_group.setOnItemClickListener(new OnItemClickListener()
 		{
 
@@ -279,17 +279,21 @@ public class TabMain extends Fragment implements OnClickListener, BaseFragment
 	@Override
 	public void refreshView()
 	{
-		groupAdapter.setList(MainActivity.groupList);
-		if (MyApplication.member != null)
+		if (groupAdapter != null)
 		{
-
-			if (MyApplication.member.getAdList().size() > 0)
+			groupAdapter.setList(MainActivity.groupList);
+		
+			if (MyApplication.member != null)
 			{
-				mSlideShowView.setImageUris(MyApplication.member.getAdList());
-			}
-			else
-			{
-				mSlideShowView.setBackgroundResource(R.drawable.guanggao);
+		
+				if (MyApplication.member.getAdList().size() > 0)
+				{
+					mSlideShowView.setImageUris(MyApplication.member.getAdList());
+				}
+				else
+				{
+					mSlideShowView.setBackgroundResource(R.drawable.guanggao);
+				}
 			}
 		}
 	}

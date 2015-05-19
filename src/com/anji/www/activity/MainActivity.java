@@ -16,6 +16,7 @@ import com.anji.www.db.service.AnjiGroupService;
 import com.anji.www.entry.DeviceInfo;
 import com.anji.www.entry.GroupInfo;
 import com.anji.www.entry.Member;
+import com.anji.www.entry.SceneInfo;
 import com.anji.www.network.NetReq;
 import com.anji.www.service.UdpService;
 import com.anji.www.util.DisplayUtils;
@@ -62,14 +63,15 @@ public class MainActivity extends FragmentActivity
 	private RadioGroup rgs;
 	private static final String TAG = "MainActivity";
 	private static final int UPDATE = 100;
-	private RadioButton tab_rb_main;
-	private RadioButton tab_rb_bluetooth;
-	private RadioButton tab_rb_set;
-	private RadioButton tab_rb_more;
+//	private RadioButton tab_rb_main;
+//	private RadioButton tab_rb_bluetooth;
+//	private RadioButton tab_rb_set;
+//	private RadioButton tab_rb_more;
 	// private Dialog alertRestDialog;
 	// 连接成功或是失败的广播
 	public static int currentIndex;
 	private int sysVersion = Integer.parseInt(VERSION.SDK);
+	private TabScene tabScene;
 	private TabMain tabMain;
 	private TabSwtich tabSwtich;
 	private TabSense tabSense;
@@ -105,6 +107,7 @@ public class MainActivity extends FragmentActivity
 	public static List<DeviceInfo> sensorList = new ArrayList<DeviceInfo>();// 所有传感列表
 	public static List<GroupInfo> groupList = new ArrayList<GroupInfo>();// 所有分组列表
 	public static List<IPCameraInfo> cameraList = new ArrayList<IPCameraInfo>();// 所有摄像头列表
+	public static List<SceneInfo> sceneList = new ArrayList<SceneInfo>();// 所有分组列表
 	private List<IPCameraInfo> saveCameraList;// 保存的摄像头的列表
 	private SwitchTask switchTask;
 	private SensorTask sensorTask;
@@ -435,20 +438,22 @@ public class MainActivity extends FragmentActivity
 
 	private void initView()
 	{
-		tab_rb_main = (RadioButton) findViewById(R.id.tab_rb_main);
-		tab_rb_bluetooth = (RadioButton) findViewById(R.id.tab_rb_bluetooth);
-		tab_rb_set = (RadioButton) findViewById(R.id.tab_rb_set);
-		tab_rb_more = (RadioButton) findViewById(R.id.tab_rb_more);
+//		tab_rb_main = (RadioButton) findViewById(R.id.tab_rb_main);
+//		tab_rb_bluetooth = (RadioButton) findViewById(R.id.tab_rb_bluetooth);
+//		tab_rb_set = (RadioButton) findViewById(R.id.tab_rb_set);
+//		tab_rb_more = (RadioButton) findViewById(R.id.tab_rb_more);
+		tabScene = new TabScene();
 		tabMain = new TabMain();
 		tabSwtich = new TabSwtich();
 		tabSense = new TabSense();
 		tabCamera = new TabCamera();
+		fragments.add( tabScene );
 		fragments.add(tabMain);
 		fragments.add(tabSwtich);
 		fragments.add(tabSense);
 		fragments.add(tabCamera);
-		tab_rb_main.setTextColor(getResources().getColor(
-				R.color.title_background));
+//		tab_rb_main.setTextColor(getResources().getColor(
+//				R.color.title_background));
 		rgs = (RadioGroup) findViewById(R.id.tabs_rg);
 		FragmentTabAdapter tabAdapter = new FragmentTabAdapter(this, fragments,
 				R.id.tab_content, rgs);
@@ -462,7 +467,7 @@ public class MainActivity extends FragmentActivity
 						System.out.println("Extra---- " + index
 								+ " checked!!! ");
 						currentIndex = index;
-						updataTextColor(index);
+//						updataTextColor(index);
 
 					}
 				});
@@ -474,40 +479,40 @@ public class MainActivity extends FragmentActivity
 		progressDialog.setCancelable(true);
 	}
 
-	private void updataTextColor(int index)
-	{
-		tab_rb_main.setTextColor(getResources().getColor(R.color.regiest_text));
-		tab_rb_bluetooth.setTextColor(getResources().getColor(
-				R.color.regiest_text));
-		tab_rb_set.setTextColor(getResources().getColor(R.color.regiest_text));
-		tab_rb_more.setTextColor(getResources().getColor(R.color.regiest_text));
-		switch (index)
-		{
-		case 0:
-			tab_rb_main.setTextColor(getResources().getColor(
-					R.color.title_background));
-			currentIndex = 0;
-			break;
-		case 1:
-			tab_rb_bluetooth.setTextColor(getResources().getColor(
-					R.color.title_background));
-			currentIndex = 1;
-			break;
-		case 2:
-			tab_rb_set.setTextColor(getResources().getColor(
-					R.color.title_background));
-			currentIndex = 2;
-			break;
-		case 3:
-			tab_rb_more.setTextColor(getResources().getColor(
-					R.color.title_background));
-			currentIndex = 3;
-			break;
-
-		default:
-			break;
-		}
-	}
+//	private void updataTextColor(int index)
+//	{
+//		tab_rb_main.setTextColor(getResources().getColor(R.color.regiest_text));
+//		tab_rb_bluetooth.setTextColor(getResources().getColor(
+//				R.color.regiest_text));
+//		tab_rb_set.setTextColor(getResources().getColor(R.color.regiest_text));
+//		tab_rb_more.setTextColor(getResources().getColor(R.color.regiest_text));
+//		switch (index)
+//		{
+//		case 0:
+//			tab_rb_main.setTextColor(getResources().getColor(
+//					R.color.title_background));
+//			currentIndex = 0;
+//			break;
+//		case 1:
+//			tab_rb_bluetooth.setTextColor(getResources().getColor(
+//					R.color.title_background));
+//			currentIndex = 1;
+//			break;
+//		case 2:
+//			tab_rb_set.setTextColor(getResources().getColor(
+//					R.color.title_background));
+//			currentIndex = 2;
+//			break;
+//		case 3:
+//			tab_rb_more.setTextColor(getResources().getColor(
+//					R.color.title_background));
+//			currentIndex = 3;
+//			break;
+//
+//		default:
+//			break;
+//		}
+//	}
 
 	@Override
 	protected void onResume()
@@ -518,6 +523,7 @@ public class MainActivity extends FragmentActivity
 		if (isNeedRefresh)
 		{
 			initData();
+			tabScene.refreshView();
 			tabMain.refreshView();
 			tabSwtich.refreshView();
 			tabSense.refreshView();

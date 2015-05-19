@@ -125,7 +125,7 @@ public class GroupListAdapter extends BaseAdapter
 						listItemView.img_group_head
 						.setImageResource(R.drawable.group_oldman_button_selector);
 					}
-					else if (item.getIconType().equals("5"))
+					else if (item.getIconType().equals("6"))
 					{
 						listItemView.img_group_head
 						.setImageResource(R.drawable.group_readingroom_button_selector);

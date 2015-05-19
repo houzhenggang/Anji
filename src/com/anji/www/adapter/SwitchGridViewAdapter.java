@@ -8,6 +8,7 @@ import com.anji.www.constants.MyConstants;
 import com.anji.www.entry.DeviceInfo;
 import com.anji.www.util.LogUtil;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,10 @@ import android.widget.TextView;
 public class SwitchGridViewAdapter extends BaseAdapter
 {
 	private List<DeviceInfo> deviceList;
-	private AddGroupActivity myContext;
+	private Activity myContext;
 	private final static String TAG = "GroupListAdapter";
 
-	public SwitchGridViewAdapter(AddGroupActivity myContext, List<DeviceInfo> deviceList)
+	public SwitchGridViewAdapter(Activity myContext, List<DeviceInfo> deviceList)
 	{
 		this.myContext = myContext;
 		this.deviceList = deviceList;
