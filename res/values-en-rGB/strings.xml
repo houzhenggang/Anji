@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="login_promote_success">Login success</string>
+	<string name="login_promote_fail_usr_pwd_error">User name or password error</string>
+	<string name="login_promote_fail_access_deny">Access deny</string>
+	<string name="login_promote_fail_exceed_max_user">Exceed max user count</string>
+	<string name="login_promote_fail_connect_fail">Can not connect to camera</string>
+	
+	<string name="open_talk_promote_success">Open talk success</string>
+	<string name="open_talk_promote_fail">Already used by another user</string>
+	<string name="close_talk_promote_success">Close talk success</string>
+	<string name="close_talk_promote_fail">Close talk fail</string>
+	
+	<string name="open_audio_promote_success">Start audio</string>
+	<string name="close_audio_promote_success">Stop audio</string>
+</resources>

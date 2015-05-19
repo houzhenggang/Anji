@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/icontype_background"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="@string/select_icon"
+        android:textColor="@color/white80"
+        android:textSize="22sp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/img_livingroom"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="10"
+            android:padding="10dp"
+            android:src="@drawable/group_living_button_selector" />
+
+        <ImageView
+            android:id="@+id/img_babyroom"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="10"
+            android:padding="10dp"
+            android:src="@drawable/group_baby_button_selector" />
+
+        <ImageView
+            android:id="@+id/img_bathroom"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="10"
+            android:padding="10dp"
+            android:src="@drawable/group_bathroom_button_selector" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/img_bedroom"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="10"
+            android:padding="10dp"
+            android:src="@drawable/group_bedroom_button_selector" />
+
+        <ImageView
+            android:id="@+id/img_kitchenroom"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="10"
+            android:padding="10dp"
+            android:src="@drawable/group_kitchen_button_selector" />
+
+        <ImageView
+             android:id="@+id/img_oldroom"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="10"
+            android:padding="10dp"
+            android:src="@drawable/group_oldman_button_selector" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+             android:id="@+id/img_readingroom"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="10"
+            android:padding="10dp"
+            android:src="@drawable/group_readingroom_button_selector" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="10"
+            android:padding="10dp" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="10"
+            android:padding="10dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/cencal_button_selector"
+        android:text="@string/cancel"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
+
+</LinearLayout>

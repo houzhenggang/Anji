@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_normal" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/bg" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/ll_group_edit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone" >
+
+                <ImageView
+                    android:id="@+id/img_group_icon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/group_living_button_selector" />
+
+                <EditText
+                    android:id="@+id/et_group_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="100"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:text="@string/living_room"
+                    android:textColor="@color/item_text"
+                    android:textSize="22sp" >
+                </EditText>
+
+                <Button
+                    android:id="@+id/bt_edit_sure"
+                    android:layout_width="77dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="10"
+                    android:background="@drawable/group_edit_bt_selector"
+                    android:text="@string/sure"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/bar_a"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/bar_1" >
+
+                    <ImageView
+                        android:id="@+id/img_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_swith" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/img_switch"
+                        android:text="@string/tab_switch"
+                        android:textColor="@color/title_background"
+                        android:textSize="22sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_group_switch"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:button="@drawable/checkbox_selector" />
+                </RelativeLayout>
+
+                <com.anji.www.view.MyGridView
+                    android:id="@+id/gv_switch"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="1dp"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:horizontalSpacing="5dp"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="3"
+                    android:verticalSpacing="5dip" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bar_a"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/bar_1" >
+
+                    <ImageView
+                        android:id="@+id/img_switch2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_sensing" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/img_switch2"
+                        android:text="@string/tab_sense"
+                        android:textColor="@color/title_background"
+                        android:textSize="22sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_group_sensor"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:button="@drawable/checkbox_selector" />
+                </RelativeLayout>
+
+                <com.anji.www.view.MyGridView
+                    android:id="@+id/gv_sensor"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="1dp"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:horizontalSpacing="5dp"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="3"
+                    android:verticalSpacing="5dip" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bar_a"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/bar_1" >
+
+                    <ImageView
+                        android:id="@+id/img_switch3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_camera" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/img_switch3"
+                        android:text="@string/tab_camera"
+                        android:textColor="@color/title_background"
+                        android:textSize="22sp" />
+                </RelativeLayout>
+
+                <com.anji.www.view.MyGridView
+                    android:id="@+id/gv_camera"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="1dp"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:horizontalSpacing="5dp"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="3"
+                    android:verticalSpacing="5dip" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_delete_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/group_delete_selector"
+                android:text="@string/delete_group"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

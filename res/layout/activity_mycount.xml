@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/switch_background"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_normal" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/line" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@color/regiest_background" >
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/regiestTextVIew"
+            android:layout_width="wrap_content"
+            android:text="@string/usre_name" />
+
+        <TextView
+            android:id="@+id/tv_username"
+            style="@style/regiestEditText"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@id/tv_name" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/line" />
+    </RelativeLayout>
+<RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@color/regiest_background" >
+
+        <TextView
+            android:id="@+id/tv_phone"
+            style="@style/regiestTextVIew"
+            android:layout_width="wrap_content"
+            android:text="@string/phone_number" />
+
+        <TextView
+            android:id="@+id/tv_phone_num"
+            style="@style/regiestEditText"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@id/tv_phone" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/line" />
+    </RelativeLayout>
+    <Button
+        android:id="@+id/bt_change_password"
+        style="@style/regiestButton"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/login_button_selector"
+        android:text="@string/change_password"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/bt_change_net"
+        style="@style/regiestButton"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_button_selector"
+        android:text="@string/change_device"
+        android:textColor="@color/white" />
+
+</LinearLayout>

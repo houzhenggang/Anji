@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_normal" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/line" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@color/regiest_background" >
+
+        <TextView
+            android:id="@+id/tv_username"
+            style="@style/regiestTextVIew"
+            android:text="@string/usre_name" />
+
+        <EditText
+            android:id="@+id/et_username"
+            style="@style/regiestEditText"
+            android:layout_toRightOf="@id/tv_username"
+            android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:hint="@string/name_hint"
+            android:inputType="textUri"
+            android:singleLine="true"
+            android:textColorHint="#ccc"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/line" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@color/regiest_background" >
+
+        <TextView
+            android:id="@+id/tv_password"
+            style="@style/regiestTextVIew"
+            android:text="@string/pass_word" />
+
+        <EditText
+            android:id="@+id/et_password"
+            style="@style/regiestEditText"
+            android:layout_toRightOf="@id/tv_password"
+            android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:hint="@string/name_hint"
+            android:inputType="textPassword"
+            android:textColorHint="#ccc"
+            android:singleLine="true"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/line" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@color/regiest_background" >
+
+        <TextView
+            android:id="@+id/tv_confrim"
+            style="@style/regiestTextVIew"
+            android:text="@string/confirm_passwork" />
+
+        <EditText
+            android:id="@+id/et_confirm_pass"
+            style="@style/regiestEditText"
+            android:layout_toRightOf="@id/tv_confrim"
+            android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:hint="@string/name_hint"
+            android:inputType="textPassword"
+            android:textColorHint="#ccc"
+            android:singleLine="true"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/line" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_next_step"
+        style="@style/regiestButton"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/login_button_selector"
+        android:text="@string/next_step"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+</LinearLayout>

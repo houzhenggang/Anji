@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/switch_background"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_normal" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/line" />
+
+    <RelativeLayout
+        android:id="@+id/rl_change_net"
+        style="@style/setLayoutClick"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp" >
+
+        <ImageView
+            android:id="@+id/img_changenet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icon_wangluozhuanhuan" />
+
+        <TextView
+            android:id="@+id/tv_username"
+            style="@style/regiestEditText2"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/img_changenet"
+            android:text="@string/change_net" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/line" />
+
+        <TextView
+            android:id="@+id/tv_net_type"
+            style="@style/regiestEditText2"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_username"
+            android:text="@string/out_net"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_net_address"
+            style="@style/regiestEditText2"
+            android:layout_width="wrap_content"
+            android:layout_below="@id/tv_net_type"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/tv_username"
+            android:text="www.zean.cc"
+            android:visibility="gone"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_my_count"
+        style="@style/setLayoutClick"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp" >
+
+        <ImageView
+            android:id="@+id/img_changenet2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icon_wodezhanghu" />
+
+        <TextView
+            style="@style/regiestEditText2"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/img_changenet2"
+            android:text="@string/my_count" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/line" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_check_version"
+        style="@style/setLayoutClick"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp" >
+
+        <ImageView
+            android:id="@+id/img_changenet3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icon_jianchagengxin" />
+
+        <TextView
+            android:id="@+id/tv_version"
+            style="@style/regiestEditText2"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/img_changenet3"
+            android:text="@string/check_update" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/line" />
+
+        <ImageView
+            android:id="@+id/img_update_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/icon_new"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_about_help"
+        style="@style/setLayoutClick"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp" >
+
+        <ImageView
+            android:id="@+id/img_changenet4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icon_guanyubangzhu" />
+
+        <TextView
+            style="@style/regiestEditText2"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/img_changenet4"
+            android:text="@string/about_help" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/line" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_exit"
+        style="@style/setLayoutClick"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp" >
+
+        <ImageView
+            android:id="@+id/img_changenet5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icon_tuichu" />
+
+        <TextView
+            style="@style/regiestEditText2"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/img_changenet5"
+            android:text="@string/logout" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/line" />
+    </RelativeLayout>
+
+</LinearLayout>

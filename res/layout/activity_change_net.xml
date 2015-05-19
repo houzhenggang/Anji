@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_normal" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <ImageView
+            android:id="@+id/img_line"
+            android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/line" />
+
+        <ListView
+            android:layout_below="@id/img_line"
+            android:id="@+id/lv_gateway"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/bt_add_mac"
+            android:layout_marginBottom="20dp"
+            android:divider="@null" >
+        </ListView>
+
+        <Button
+            android:id="@+id/bt_add_mac"
+            style="@style/regiestButton"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/login_button_selector"
+            android:text="@string/add_new_mac"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+</LinearLayout>

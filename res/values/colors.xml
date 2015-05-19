@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 白色 -->
+    <color name="white">#FFFFFF</color>
+    <color name="white20">#51FFFFFF</color>
+    <color name="white80">#CCFFFFFF</color>
+    <color name="graywhite">#F6F6F6</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent20">#20FFFFFF</color>
+    <!-- 红色 -->
+    <!-- <color name="red">#E14C62</color> -->
+    <color name="red">#fe0000</color>
+    <color name="red2">#ff0000</color>
+    <!-- 老花色 -->
+    <color name="oldlace">#FDF5E6</color>
+    <!-- 粉红色 -->
+    <color name="pink">#FFC0CB</color>
+    <!-- 黑色 -->
+    <color name="black">#454545</color>
+    <!-- 蓝色 -->
+    <color name="blue">#0066CC</color>
+    <!-- 深粉红色 -->
+    <color name="deeppink">#CC0033</color>
+    <!-- 灰色 -->
+    <color name="gray">#aaa</color>
+    <!-- 深灰色 -->
+    <color name="deepgray">#333333</color>
+    <!-- 程序背景的白色 -->
+    <color name="bgwhite">#F5F5F5</color>
+
+    <!-- 横线 -->
+    <color name="silver">#CCCCCC</color>
+    <!-- 列表标题字体颜色 -->
+    <color name="textcolors">#06649e</color>
+    <!-- 列表条目颜色 -->
+    <color name="text_item_color">#ccffffff</color>
+    <!-- 登陆界面的背景 -->
+    <color name="login_background">#3abad4</color>
+    <!-- 注册账号颜色 -->
+    <color name="register">#727272</color>
+    <!-- 标题背景色 -->
+    <color name="title_background">#3abad4</color>
+    <!-- 注册输入框背景图 -->
+    <color name="regiest_background">#f6f6f6</color>
+    <color name="regiest_background2">#efefef</color>
+    <color name="regiest_background3">#e4e4e4</color>
+    <!-- 注册文字颜色 -->
+    <color name="regiest_text">#9d717171</color>
+    <color name="item_text">#717171</color>
+    <color name="item_text3">#919191</color>
+    <color name="item_text4">#c1c1c1</color>
+    <color name="item_text2">#d16536</color>
+    <!-- 开关背景 -->
+    <color name="switch_background">#F8F8F8</color>
+    <!-- 选择分组图片背景 -->
+    <color name="icontype_background">#CC6A6A6A</color>
+    <color name="edit_device_back">#f0f0f0</color>
+
+    <!-- 弹出多选框 -->
+    <color name="listview_divider">#E0E0E0</color>
+    <color name="ffd0d0d0">#ffd0d0d0</color>
+    <color name="dialog_buttom_bg">#ffe7e7e7</color>
+    <color name="ff79351b">#ff79351b</color>
+    <color name="ffffffff">#FFFFFFFF</color>
+    <color name="ff666666">#ff666666</color>
+    <color name="c_7fffffff">#7fffffff</color>
+
+    <!-- 湿度颜色 -->
+    <color name="wet_color">#003466</color>
+    <color name="mild_and_wet">#983466</color>
+    <color name="comfortable">#00ccff</color>
+    <color name="slightly_dry">#ffcc00</color>
+    <color name="dry">#ff6600</color>
+
+    <!-- 温度颜色 -->
+    <color name="cold">#003466</color>
+    <color name="low_temperature">#32cccc</color>
+    <color name="hot">#ff6600</color>
+    <color name="high_temperature">#ff0000</color>
+    <color name="common_bg">#F0EEEC</color>
+    
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_frame">#ff000000</color>
+    <color name="viewfinder_laser">#ffff0000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="dialog_title">#06649e</color>
+</resources>

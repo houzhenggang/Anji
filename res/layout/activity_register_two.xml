@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_normal" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/line" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@color/regiest_background" >
+
+        <TextView
+            android:id="@+id/tv_phone_number"
+            style="@style/regiestTextVIew"
+            android:text="@string/phone_number" />
+
+        <EditText
+            android:id="@+id/et_phone_number"
+            style="@style/regiestEditText"
+            android:inputType="phone"
+            android:layout_toRightOf="@id/tv_phone_number" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/line" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@color/regiest_background" >
+
+        <TextView
+            android:id="@+id/tv_security_code"
+            style="@style/regiestTextVIew"
+            android:text="@string/security_code" />
+
+        <EditText
+            android:id="@+id/et_security_code"
+            style="@style/regiestEditText"
+            android:layout_toRightOf="@id/tv_security_code" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/line" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tv_not_accept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/not_accpet"
+            android:visibility="gone"
+            android:textColor="@color/title_background"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_get_key"
+        style="@style/regiestButton"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/login_button_selector"
+        android:text="@string/get_key_code"
+        android:textColor="@color/white"
+        />
+    <Button
+        android:id="@+id/bt_register"
+        style="@style/regiestButton"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_button_selector"
+        android:text="@string/register"
+        android:textColor="@color/white"
+        />
+
+</LinearLayout>

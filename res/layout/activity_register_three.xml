@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_normal" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/line" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@color/regiest_background" >
+
+        <TextView
+            android:id="@+id/tv_mac_address"
+            style="@style/regiestTextVIew"
+            android:layout_width="100dp"
+            android:text="@string/mac_address" />
+
+        <EditText
+            android:id="@+id/et_mac_address"
+            style="@style/regiestEditText"
+            android:layout_toRightOf="@id/tv_mac_address" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/line" />
+    </RelativeLayout>
+
+
+
+    <Button
+        android:id="@+id/bt_scan"
+        style="@style/regiestButton"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/login_button_selector"
+        android:text="@string/scan"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        />
+        <Button
+        android:id="@+id/bt_auto_get"
+        style="@style/regiestButton"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_button_selector"
+        android:text="@string/auto_get"
+        android:textColor="@color/white"
+        />
+
+</LinearLayout>

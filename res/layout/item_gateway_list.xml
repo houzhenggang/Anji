@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="60dp"
+    android:background="@color/white"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp" >
+
+        <TextView
+            android:id="@+id/contact_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="15.0dip"
+            android:text="aaaaaaaaaaaa"
+            android:textColor="@color/item_text"
+            android:textSize="22sp" />
+
+        <CheckBox
+            android:id="@+id/chk_selectone"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:checked="false"
+            android:clickable="false"
+            android:focusable="false"
+            android:gravity="right|center" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/line" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/contact_name"
+        android:layout_width="0.0dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center"
+        android:layout_weight="6"
+        android:gravity="left|center"
+        android:paddingLeft="10.0dip"
+        android:textColor="@color/item_text"
+        android:textSize="22sp" />
+
+    <CheckBox
+        android:id="@+id/chk_selectone"
+        android:layout_width="0.0dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:checked="false"
+        android:clickable="false"
+        android:focusable="false"
+        android:gravity="right|center" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/line" />
+
+</LinearLayout>

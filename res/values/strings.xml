@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 创建摄像头设备列表数据库 -->
+    <string name="sql_create_camere_list_tbl">	    CREATE TABLE tb_device_list(
+	    _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	    devType NUMERIC NULL,
+	    devName VARCHAR(64) NULL,
+	    ip VARCHAR(64) NULL,
+	    streamType NUMERIC DEFAULT 0 NULL,
+	    webPort NUMERIC NULL,
+	    mediaPort NUMERIC NULL,
+	    uid VARCHAR(128) NULL,
+	    userName VARCHAR(64) NULL,
+	    password VARCHAR(64) NULL,
+	    devSetName VARCHAR(64) NULL,
+	    groupName VARCHAR(64) NULL,
+	    groupId NUMERIC NULL,
+	    thumPath VARCHAR(64) NULL,
+	    cameraId INTEGER NULL
+		)</string>
+    <!-- 创建开关，传感设备列表数据库 -->
+    <string name="sql_create_device_tbl">	    CREATE TABLE tb_anji_device(
+	    _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	    memberId VARCHAR(64) NULL,
+	    ssuid VARCHAR(64) NULL,
+	    deviceMac VARCHAR(64) NULL,
+	    deviceId INTEGER NULL,
+	    deviceChannel INTEGER NULL,
+	    deviceChannel2 INTEGER NULL,
+	    deviceType VARCHAR(64) NULL,
+	    type INTEGER NULL,
+	    deviceState INTEGER NULL,
+	    sensorState INTEGER NULL,
+	    deviceName VARCHAR(64) NULL,
+	    groupName VARCHAR(64) NULL,
+	    groupID INTEGER NULL,
+	    deviceBattery INTEGER NULL,
+	    isCharge INTEGER NULL,
+	    tempValue NUMERIC NULL,
+	    humValue NUMERIC NULL,
+	    infraredSwitch INTEGER NULL
+		)</string>
+    <string name="sql_create_group_tbl">	    CREATE TABLE tb_anji_group(
+	    _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	    groupID INTEGER NULL,
+	    groupName VARCHAR(64) NULL,
+	    memberId VARCHAR(64) NULL,
+	    ssuid VARCHAR(64) NULL,
+	    iconType VARCHAR(64) NULL
+		)</string>
+    <string name="drop_sql">drop table if EXISTS tb_device_list;</string>
+    <string name="drop_sql_device">drop table if EXISTS tb_anji_device;</string>
+    <string name="drop_sql_group">drop table if EXISTS tb_anji_group;</string>
+    <string name="btn_OK">OK</string>
+    <string name="btn_Cancel">Cancel</string>
+    <string name="app_name">岸基科技</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="login">登录</string>
+    <string name="register_account">注册账号</string>
+    <string name="register">注册</string>
+    <string name="more">更多</string>
+    <string name="group_net">组网</string>
+    <string name="next_step">下一步</string>
+    <string name="usre_name">用户名：</string>
+    <string name="pass_word">密码:</string>
+    <string name="pass_word_change_sucess">密码修改成</string>
+    <string name="old_word">旧密码:</string>
+    <string name="change_password">修改密码</string>
+    <string name="change_device">切换网关</string>
+    <string name="bind_device">绑定网关</string>
+    <string name="new_pass_word">新密码:</string>
+    <string name="confirm_passwork">确认密码:</string>
+    <string name="phone_number">手机号：</string>
+    <string name="security_code">验证码：</string>
+    <string name="get_key_code">获取验证码</string>
+    <string name="mac_address">硬件地址：</string>
+    <string name="mac_address_null">硬件地址不能为空</string>
+    <string name="mac_address_type_error">硬件地址格式不正确</string>
+    <string name="scan">扫描</string>
+    <string name="auto_get">自动获取</string>
+    <string name="cell_phone_verify">手机验证</string>
+    <string name="device_connect">设备链接</string>
+    <string name="send">发送</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="please_input_code">请输入验证码</string>
+    <string name="inputsecurity_title">填写验证码</string>
+    <string name="set_password">密码设置</string>
+    <string name="tab_main">主界面</string>
+    <string name="tab_switch">开关</string>
+    <string name="tab_sense">传感</string>
+    <string name="tab_camera">摄像头</string>
+    <string name="main_switch">总开关</string>
+    <string name="search">搜索设备中...</string>
+    <string name="normal_light">普通灯具</string>
+    <string name="socket">排插</string>
+    <string name="control_light">可控亮度灯具</string>
+    <string name="device_out_line">该设备已离线</string>
+    <string name="device_delete">该设备已删除</string>
+    <string name="delete_group">删除分组</string>
+    <string name="group">分组</string>
+    <string name="device_none">无此设备</string>
+    <string name="order_send_sucess">命令发送成功</string>
+    <string name="order_send_fail">命令发送失败</string>
+    <string name="humiture">温湿度</string>
+    <string name="temperature">温度</string>
+    <string name="humidity">湿度</string>
+    <string name="smoke">烟雾</string>
+    <string name="smoke_sensor">烟雾传感</string>
+    <string name="infrared">红外</string>
+    <string name="infrared_sensor">红外传感</string>
+    <string name="wearable_devices">穿戴</string>
+    <string name="bracelet">手环</string>
+    <string name="unknow">未知</string>
+    <string name="dry">干燥</string>
+    <string name="slightly_dry">轻微干燥</string>
+    <string name="comfortable">舒适</string>
+    <string name="mild_and_wet">轻微潮湿</string>
+    <string name="wet">潮湿</string>
+    <string name="cold">严寒</string>
+    <string name="low_temperature">低温</string>
+    <string name="hot">偏热</string>
+    <string name="high_temperature">高温</string>
+    <string name="browse">浏览</string>
+    <string name="hint">提示</string>
+    <string name="plase_input">请输入账号密码</string>
+    <string name="plase_input2">请输入账号和新密码</string>
+    <string name="cancel">取消</string>
+    <string name="ok">确定</string>
+    <string name="talk">对讲</string>
+    <string name="listen">监听</string>
+    <string name="rescord">录制</string>
+    <string name="stop">停止</string>
+    <string name="login_promote_success">登陆成功</string>
+    <string name="login_promote_fail">登陆失败</string>
+    <string name="login_promote_fail_usr_pwd_error">用户名或密码错误</string>
+    <string name="login_promote_fail_access_deny">访问受限</string>
+    <string name="login_promote_fail_exceed_max_user">超过最大用户数</string>
+    <string name="login_promote_fail_connect_fail">无法连接到你的摄像机</string>
+    <string name="open_talk_promote_success">打开对讲成功</string>
+    <string name="open_talk_promote_fail">已被其他用户占用</string>
+    <string name="close_talk_promote_success">关闭对讲成功</string>
+    <string name="close_talk_promote_fail">关闭对讲失败</string>
+    <string name="open_audio_promote_success">开始监听</string>
+    <string name="close_audio_promote_success">停止监听</string>
+    <string name="name_null">用户名不能为空</string>
+    <string name="device_name_null">设备名不能为空</string>
+    <string name="name_not_exit">该用户不存在</string>
+    <string name="phone_userd">该手机号已注册使用</string>
+    <string name="pass_null">密码不能为空</string>
+    <string name="old_pass_null">旧密码不能为空</string>
+    <string name="old_pass_error">旧密码不错误</string>
+    <string name="new_pass_null">新密码不能为空</string>
+    <string name="pass_different">新密码和确认密码不相同</string>
+    <string name="confirmpass_null">确认密码不能为空</string>
+    <string name="length_error">用户名或密码必须为6到10个字符或数字组成</string>
+    <string name="length_error2">分组名称必须为10个字符、数字或5个中文以内</string>
+    <string name="length_error3">设备名称必须为为10个字符、数字或5个中文以内</string>
+    <string name="different_pass">密码和确认密码不匹配</string>
+    <string name="system_error">系统异常</string>
+    <string name="operation_failed">操作失败</string>
+    <string name="name_exist">用户名已经存在</string>
+    <string name="name_not_exist">用户名不存在</string>
+    <string name="phone_null">电话号码不能为空</string>
+    <string name="phone_error">请输入正确的手机号码</string>
+    <string name="phone_type_error">手机号码格式不正确</string>
+    <string name="send_validCode_sucess">验证码发送成功</string>
+    <string name="validCode_null">验证码不能为空</string>
+    <string name="validCode_not_exist">验证码不存在</string>
+    <string name="validCode_error">验证码不正确</string>
+    <string name="validCode_not_work2">无效验证码</string>
+    <string name="validCode_not_work">验证码已失效</string>
+    <string name="phone_had_bind">手机号已被绑定</string>
+    <string name="phone_had_no_bind">手机号未绑定注册账号</string>
+    <string name="get_validCode">请先获取验证码</string>
+    <string name="memberId_null">会员ID不能为空</string>
+    <string name="get_code_again">重新发送</string>
+    <string name="not_accpet">没有收到验证短信？</string>
+    <string name="send_code_again">是否重新发送验证码？</string>
+    <string name="member_fail">获取会员信息失败，请返回重试</string>
+    <string name="sessionID_null">会话ID不能为空</string>
+    <string name="member_null">会员不存在</string>
+    <string name="sessionId_null">会话ID不能为空</string>
+    <string name="sessionID_not_work">无效的sessionID</string>
+    <string name="device_not_up">设备未上报服务器</string>
+    <string name="password_error">密码不正确</string>
+    <string name="register_no_sucess">账号未成功注册</string>
+    <string name="date_error">数据错误，请重新登陆</string>
+    <string name="login_error">登陆异常，请重新登陆</string>
+    <string name="change_net">网络切换</string>
+    <string name="my_count">我的账号</string>
+    <string name="web_url">http://www.zean.co</string>
+    <string name="email_address">info@zean.co</string>
+    <string name="webcat_anji">ANJI_TECH</string>
+    <string name="telephone">0755\-86503505</string>
+    <string name="check_update">检查更新</string>
+    <string name="about_help">关于帮助</string>
+    <string name="edit">编辑</string>
+    <string name="finish">完成</string>
+    <string name="exit">退出</string>
+    <string name="logout">注销</string>
+    <string name="exit_hint">确定要退出登陆吗？</string>
+    <string name="exit_hint2">确定要退出应用吗？</string>
+    <string name="change_net_hint">确定要切换网络吗？</string>
+    <string name="delete_gateway_hint">确定要删除网关吗？</string>
+    <string name="getting_wait">正在获取中，请稍候\u2026</string>
+    <string name="add_group_title">新增</string>
+    <string name="living_room">客厅</string>
+    <string name="select_icon">选择分组头像</string>
+    <string name="please_select_switch">请选择开关</string>
+    <string name="please_select_sensor">请选择传感</string>
+    <string name="please_select_camera">请选择摄像头</string>
+    <string name="group_name_null">分组名不能为空</string>
+    <string name="group_had_delete">分组已被删除</string>
+    <string name="group_id_null">分组名不能为空</string>
+    <string name="switch_id_null">开关ID不能为空</string>
+    <string name="sensor_id_null">传感器ID不能为空</string>
+    <string name="camare_id_null">摄像头ID不能为空</string>
+    <string name="switchs_agrs_error">switchs参数格式错误</string>
+    <string name="sensors_agrs_error">sensors参数格式错误</string>
+    <string name="cameras_agrs_error">cameras参数格式错误</string>
+    <string name="groupName_exist">组名称已经存在</string>
+    <string name="ssuid_null">网关地址不能为空</string>
+    <string name="gourpId_error">分组ID获取错误</string>
+    <string name="gourpId_null">分组ID不能为空</string>
+    <string name="gourpId_delete">分组已被删除</string>
+    <string name="add_group_sucess">添加分组成功</string>
+    <string name="add">添加</string>
+    <string name="add_camera">添加摄像头</string>
+    <string name="add_camera_info">如果您的设备上粘贴有二维码，请点击上述按钮，扫描二维码添加设备。</string>
+    <string name="add_camera_info2">若您不方便使用二维码，可在下框中手动输入UID。</string>
+    <string name="control_type_null">控制类型不能为空</string>
+    <string name="control_type_error">控制类型值错误</string>
+    <string name="change_net_sucess">切换内网成功</string>
+    <string name="change_net_fail">切换内网失败</string>
+    <string name="in_net">内网</string>
+    <string name="out_net">外网</string>
+    <string name="add_new_mac">添加新网关</string>
+    <string name="ssiu_not_up">网关未上报服务器</string>
+    <string name="ssiu_not_exist">网关不存在</string>
+    <string name="confirm_exit">确认退出程序？</string>
+    <string name="mainmenu_home">主目录</string>
+    <string name="mainmenu_refresh">刷新</string>
+    <string name="mainmenu_createdir">新建文件夹</string>
+    <string name="mainmenu_exit">退出</string>
+    <string name="file_rename">重命名</string>
+    <string name="file_delete">删除</string>
+    <string name="file_info">详情</string>
+    <string name="file_cannotopen">无法打开: %1$s</string>
+    <string name="file_exists">文件已存在！</string>
+    <string name="file_namecannotempty">文件名不能为空</string>
+    <string name="file_create_fail">创建文件失败！</string>
+    <string name="file_rename_fail">重命名失败！</string>
+    <string name="file_name">文件名</string>
+    <string name="file_size">大小</string>
+    <string name="file_contents">内容</string>
+    <string name="file_lastmodified">最后修改时间</string>
+    <string name="file_paste">粘贴</string>
+    <string name="file_copy">复制</string>
+    <string name="file_move">移动</string>
+    <string name="file_create">新建</string>
+    <string name="file_copy_fail">复制文件失败！</string>
+    <string name="file_move_fail">移动文件失败！</string>
+    <string name="file_notexists">文件不存在！</string>
+    <string name="up_to_service">上报</string>
+    <string name="had_upload">已上报</string>
+    <string name="uid_null">uid不能为空</string>
+    <string name="uid_had_exist">uid已经存在</string>
+    <string name="upgrade_dowing">正在下载更新</string>
+    <string name="camera_name_exist">摄像头名称已存在</string>
+    <string name="camera_id_null">摄像头ID不能为空</string>
+    <string name="camera_had_delete">摄像头已被删除</string>
+    <string name="camera_upload_sucess">摄像头上报成功</string>
+    <string name="camera_no_upload">摄像头未上报，无法编辑</string>
+    <string name="devicetype_error">设备类型错误</string>
+    <string name="group_net_sucess">组网成功</string>
+    <string name="camera_login_error">账号或密码错误</string>
+    <string name="camera_login_error2">请求被拒绝</string>
+    <string name="camera_login_error3">摄像头超过最大用户</string>
+    <string name="camera_login_error4">摄像头连接失败</string>
+    <string name="delete_outline">设备处于离线，无法删除</string>
+    <string name="delete_device_sucess">设备删除成功</string>
+    <string name="oper_type_null">控制类型不能为空</string>
+    <string name="oper_type_error">控制类型范围错误</string>
+    <string name="sure">确定</string>
+    <string name="new_group_name_null">新的组名不能为空</string>
+    <string name="new_group_id_null">新的组ID不能为空</string>
+    <string name="delete">删除</string>
+    <string name="edit_device">编辑设备</string>
+    <string name="qr_code_scanner">二维码扫描</string>
+    <string name="scan_fail">扫描失败</string>
+    <string name="motify_device_name">修改设备名称</string>
+    <string name="select_group">选择分组</string>
+    <string name="new_device_name_null">新设备名称不能为空</string>
+    <string name="new_device_id_null">新分组ID不能为空</string>
+    <string name="edit_device_sucess">编辑设备成功</string>
+    <string name="edit_device_fail">编辑设备失败</string>
+    <string name="switch_had_delete">开关已被删除</string>
+    <string name="device_name_exist">名称已存在</string>
+    <string name="not_accept_message">没有收到验证短信？</string>
+    <string name="had_send_message">已发送验证短信到</string>
+    <string name="gateway_is_current">此网关已是当前网关</string>
+    <string name="input_gorup_name">请输入分组名称</string>
+    <string name="remove_gateway_sucess">解绑网关成功</string>
+    <string name="remove_gateway_fail">无法解绑当前网关</string>
+    <string name="name_hint">6到10个字符或数字组成</string>
+    <string name="we_address">我们的位置</string>
+    <string name="upgrade_Reminder">更新提示</string>
+    <string name="upgrade_Later">稍后再说</string>
+    <string name="upgrade_Now">立即更新</string>
+    <string name="upgrade_download_fail">下载新版本失败</string>
+    <string name="upgrade_isnew">当前版本为最新版本</string>
+    <string name="upgrade_hasNew">岸基科技应用有更新。</string>
+    <string name="share_text_title">app下载-深圳市岸基科技有限公司</string>
+    <string name="exceed_max">超过最大用户数量</string>
+    <string name="args_error">参数错误</string>
+    <string name="device_not_online">设备不在线</string>
+    <string name="the_access_deny">访问拒绝</string>
+    <string name="tiem_out">登陆超时</string>
+    <string name="device_uid">设备二维码UID</string>
+    <string name="wifi_info">WIFI信息</string>
+    <string name="input_device_info">输入设备用户名和密码</string>
+    <string name="connect">连接</string>
+    <string name="wifi_name">WIFI名称</string>
+    <string name="wifi_pass">WIFI密码</string>
+    <string name="username">用户名</string>
+    <string name="old_pass">原密码</string>
+    <string name="new_pass">新密码</string>
+    <string name="confirm_new_pass">确认新密码</string>
+    <string name="not_camera">扫描到的不是摄像头的二维码</string>
+    <string name="wifi_pass_null">WIFI密码不能为空</string>
+
+</resources>
