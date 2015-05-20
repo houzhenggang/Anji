@@ -16,6 +16,7 @@ import com.anji.www.entry.GatewayResponse;
 import com.anji.www.entry.GroupInfo;
 import com.anji.www.entry.Member;
 import com.anji.www.entry.ResponseBase;
+import com.anji.www.entry.SceneInfo;
 import com.anji.www.entry.Version;
 import com.anji.www.util.CMHttpManager;
 import com.remote.util.IPCameraInfo;
@@ -614,6 +615,26 @@ public class NetReq
 		catch (JSONException e)
 		{
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * 查询所有情景。
+	 */
+	public static ArrayList<SceneInfo> qurryAllScene( String ssuid )
+	{
+		String json = CMHttpManager.post(Url.qurryAllScene, "ssuid", ssuid);
+		try
+		{
+			ArrayList<SceneInfo> deviceList = JsonParserFactory
+					.parseSceneList(json);
+
+			return deviceList;
+		}
+		catch (JSONException e)
+		{
 			e.printStackTrace();
 		}
 		return null;

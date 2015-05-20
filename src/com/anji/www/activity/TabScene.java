@@ -20,7 +20,7 @@ import android.widget.TextView;
 /**
  * Ö÷Ò³Ò³Ãæ
  * 
- * @author Ivan
+ * @author moon
  */
 public class TabScene extends Fragment implements OnClickListener, BaseFragment, ItemEvent
 {
@@ -129,8 +129,6 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 		case R.id.tv_add:
 			intent = new Intent(activity, AddSceneActivity.class);
 			activity.startActivity(intent);
-			activity.overridePendingTransition(android.R.anim.slide_in_left,
-					android.R.anim.slide_out_right);
 			break;
 		}
 	}

@@ -107,12 +107,13 @@ public class MainActivity extends FragmentActivity
 	public static List<DeviceInfo> sensorList = new ArrayList<DeviceInfo>();// 所有传感列表
 	public static List<GroupInfo> groupList = new ArrayList<GroupInfo>();// 所有分组列表
 	public static List<IPCameraInfo> cameraList = new ArrayList<IPCameraInfo>();// 所有摄像头列表
-	public static List<SceneInfo> sceneList = new ArrayList<SceneInfo>();// 所有分组列表
+	public static List<SceneInfo> sceneList = new ArrayList<SceneInfo>();// 所有情景列表
 	private List<IPCameraInfo> saveCameraList;// 保存的摄像头的列表
 	private SwitchTask switchTask;
 	private SensorTask sensorTask;
 	private CameraTask cameraTask;
 	private GroupTask groupTask;
+	private SceneTask sceneTask;
 	public static boolean isForeground = false;
 	private AnjiGroupService groupService;
 	private DatabaseHelper dbHelp;
@@ -370,6 +371,7 @@ public class MainActivity extends FragmentActivity
 		startQurryCamera();
 		startQurrySensor();
 		startQurryGroup();
+		startQurryScene();
 	}
 
 	public void qurryAllSwtich()
@@ -532,7 +534,7 @@ public class MainActivity extends FragmentActivity
 		}
 		if (!isFirstStart)
 		{
-			startQurryGroup();
+			startQurryScene();
 		}
 		isFirstStart = false;
 		// qurryAll();
@@ -1068,6 +1070,27 @@ public class MainActivity extends FragmentActivity
 		groupTask = new GroupTask();
 		groupTask.execute();
 	}
+	
+	public void startQurryScene()
+	{
+		sceneTask = new SceneTask();
+		sceneTask.execute();
+	}
+	
+	public void cancelQurryScene()
+	{
+		if (sceneTask != null)
+		{
+			sceneTask.cancel(true);
+			sceneTask = null;
+		}
+	}
+
+	public void startQurrySceneWithDialog()
+	{
+		sceneTask = new SceneTask();
+		sceneTask.execute();
+	}
 
 	private void QurryQurryGroup()
 	{
@@ -1109,6 +1132,37 @@ public class MainActivity extends FragmentActivity
 				tabMain.refreshView();
 				// tabSense.refreshView();
 				// tabCamera.refreshView();
+			}
+
+		}
+	}
+	
+	private class SceneTask extends AsyncTask<Object, Object, Void>
+	{
+		private List<SceneInfo> sceneTempList;
+
+		@Override
+		protected Void doInBackground(Object... params)
+		{
+			if (member != null)
+			{
+				sceneTempList = NetReq.qurryAllScene(member.getSsuid());
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result)
+		{
+			if (progressDialog != null && progressDialog.isShowing())
+			{
+				progressDialog.dismiss();
+			}
+			if (sceneTempList != null && sceneTempList.size() > 0)
+			{
+				sceneList = sceneTempList;
+
+				tabScene.refreshView();
 			}
 
 		}

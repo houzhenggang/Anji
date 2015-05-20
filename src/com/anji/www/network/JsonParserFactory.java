@@ -22,6 +22,7 @@ import com.anji.www.entry.GatewayResponse;
 import com.anji.www.entry.GroupInfo;
 import com.anji.www.entry.Member;
 import com.anji.www.entry.ResponseBase;
+import com.anji.www.entry.SceneInfo;
 import com.anji.www.entry.Version;
 import com.anji.www.util.EncyrptUtils;
 import com.anji.www.util.LogUtil;
@@ -466,6 +467,34 @@ public class JsonParserFactory
 		member.setMemberId(getStr(obj, "cameraId"));
 
 		return member;
+	}
+	
+	/**
+	 * 解析获取所有情景的数据
+	 * 
+	 * @param json
+	 * @return
+	 * @throws JSONException
+	 */
+	public static ArrayList<SceneInfo> parseSceneList(String json)
+			throws JSONException
+	{
+		if (json == null) return null;
+		ArrayList<SceneInfo> list = new ArrayList<SceneInfo>();
+		JSONArray arr = new JSONArray(json);
+		for (int i = 0; i < arr.length(); i++)
+		{
+			SceneInfo info = new SceneInfo();
+			JSONObject obj = arr.getJSONObject(i);
+			info.setSceneId(getInt(obj, "id"));
+			info.setSceneName(getStr(obj, "sceneName"));
+			info.setIconType(getStr(obj, "iconType"));
+			int status = getInt(obj, "status");
+			info.setOn( status == 1 );
+			info.setSsuid( getStr(obj, "ssuid") );
+			list.add(info);
+		}
+		return list;
 	}
 
 	private static String getStr(JSONObject o, String key) throws JSONException

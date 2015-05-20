@@ -56,7 +56,7 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener
 	private TextView tv_title;
 	private EditText et_scene_name;
 	private PopupWindow setIconType;
-	private ImageView img_group_icon;
+	private ImageView img_scene_icon;
 	private static final String Tag = "AddGroupActivity";
 	private int iconType;// 0大厅，1婴儿房，2，浴室 3，卧室 4，厨房 5，老人房 6 书房
 	private List<DeviceInfo> switchList;// 未分组的设备
@@ -152,7 +152,7 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener
 	private void initView()
 	{
 		progressDialog = DisplayUtils.createDialog(mContext);
-		img_group_icon = (ImageView) findViewById(R.id.img_group_icon);
+		img_scene_icon = (ImageView) findViewById(R.id.img_scene_icon);
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		bt_back = (Button) findViewById(R.id.bt_back);
 		bt_right = (Button) findViewById(R.id.bt_right);
@@ -162,7 +162,7 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener
 		tv_title.setText(R.string.add_group_title);
 		et_scene_name = (EditText) findViewById(R.id.et_group_name);
 
-		img_group_icon.setOnClickListener(this);
+		img_scene_icon.setOnClickListener(this);
 		bt_back.setOnClickListener(this);
 		bt_right.setOnClickListener(this);
 
@@ -355,48 +355,48 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener
 			startAddGroupTask();
 
 			break;
-		case R.id.img_group_icon:
-			showPopupWindow(setIconType, img_group_icon);
+		case R.id.img_scene_icon:
+			showPopupWindow(setIconType, img_scene_icon);
 			break;
 		case R.id.img_livingroom:
 			iconType = 0;
-			img_group_icon
+			img_scene_icon
 					.setBackgroundResource(R.drawable.group_living_button_selector);
 			dismissIconTypePop();
 			break;
 		case R.id.img_babyroom:
-			img_group_icon
+			img_scene_icon
 					.setBackgroundResource(R.drawable.group_baby_button_selector);
 			dismissIconTypePop();
 			iconType = 1;
 			break;
 		case R.id.img_bathroom:
-			img_group_icon
+			img_scene_icon
 					.setBackgroundResource(R.drawable.group_bathroom_button_selector);
 			dismissIconTypePop();
 			iconType = 2;
 			break;
 		case R.id.img_bedroom:
-			img_group_icon
+			img_scene_icon
 					.setBackgroundResource(R.drawable.group_bedroom_button_selector);
 			dismissIconTypePop();
 			iconType = 3;
 			break;
 		case R.id.img_kitchenroom:
 			dismissIconTypePop();
-			img_group_icon
+			img_scene_icon
 					.setBackgroundResource(R.drawable.group_kitchen_button_selector);
 			iconType = 4;
 			break;
 		case R.id.img_oldroom:
 			dismissIconTypePop();
-			img_group_icon
+			img_scene_icon
 					.setBackgroundResource(R.drawable.group_oldman_button_selector);
 			iconType = 5;
 			break;
 		case R.id.img_readingroom:
 			dismissIconTypePop();
-			img_group_icon
+			img_scene_icon
 					.setBackgroundResource(R.drawable.group_readingroom_button_selector);
 			iconType = 6;
 			break;

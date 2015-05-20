@@ -122,5 +122,22 @@ public class Url
 	public static final String getGroupDeviceInfo = webUrl + "ws_50015004";
 	/** 获取版本更新 */
 	public static final String getUpdataInfo = webUrl + "ws_50012001";
-
+	
+	/** 查询用户下的所有情景  */
+	public static final String qurryAllScene = webUrl + "ws_50021001";
+	
+	/** 查询指定情景模式信息  */
+	public static final String qurryScene = webUrl + "ws_50021002";
+	
+	/** 查询情景模式下灯设备列表  */
+	public static final String qurrySceneDevice = webUrl + "ws_50021003";
+	
+	/** 查询情景模式下传感器列表  */
+	public static final String qurrySceneSensor = webUrl + "ws_50021004";
+	
+	/** 保存情景模式（新增/修改）  */
+	public static final String saveOrUpdateScene = webUrl + "ws_50021005";
+	
+	/** 删除情景模式  */
+	public static final String deleteScene = webUrl + "ws_50021006";
 }
