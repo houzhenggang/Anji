@@ -130,14 +130,20 @@ public class Url
 	public static final String qurryScene = webUrl + "ws_50021002";
 	
 	/** 查询情景模式下灯设备列表  */
-	public static final String qurrySceneDevice = webUrl + "ws_50021003";
+	public static final String qurrySceneSwitch = webUrl + "ws_50021003";
 	
 	/** 查询情景模式下传感器列表  */
 	public static final String qurrySceneSensor = webUrl + "ws_50021004";
 	
-	/** 保存情景模式（新增/修改）  */
-	public static final String saveOrUpdateScene = webUrl + "ws_50021005";
+	/** 保存情景模式  */
+	public static final String saveScene = webUrl + "ws_50021005";
 	
 	/** 删除情景模式  */
 	public static final String deleteScene = webUrl + "ws_50021006";
+	
+	/** 情景模式切换  */
+	public static final String switchScene = webUrl + "ws_50021010";
+	
+	/** 修改情景模式  */
+	public static final String updateScene = webUrl + "ws_50021011";
 }

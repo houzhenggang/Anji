@@ -639,4 +639,46 @@ public class NetReq
 		}
 		return null;
 	}
+	
+	/**
+	 * 查询情景模式所有开关。
+	 */
+	public static List<DeviceInfo> qurrySceneSwitch(String memberId, String ssuid)
+	{
+		String json = CMHttpManager.post(Url.qurrySceneSwitch, "memberId",
+				memberId, "ssuid", ssuid);
+		try
+		{
+			List<DeviceInfo> deviceList = JsonParserFactory
+					.parseSwitchList(json);
+
+			return deviceList;
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 查询情景模式所有传感。
+	 */
+	public static List<DeviceInfo> qurrySceneSensor(String memberId, String ssuid)
+	{
+		String json = CMHttpManager.post(Url.qurrySceneSensor, "memberId",
+				memberId, "ssuid", ssuid);
+		try
+		{
+			List<DeviceInfo> deviceList = JsonParserFactory
+					.parseSenceList(json);
+
+			return deviceList;
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

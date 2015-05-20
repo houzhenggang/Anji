@@ -7,6 +7,8 @@ import java.util.List;
 
 import com.anji.www.R;
 import com.anji.www.adapter.CameraGridViewAdapter;
+import com.anji.www.adapter.SceneSensorAdapter;
+import com.anji.www.adapter.SceneSwitchAdapter;
 import com.anji.www.adapter.SensorGridViewAdapter;
 import com.anji.www.adapter.SwitchGridViewAdapter;
 import com.anji.www.db.service.AnjiGroupService;
@@ -69,8 +71,8 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener
 	private GridView gv_sensor;
 //	private GridView gv_camera;
 
-	private SwitchGridViewAdapter switchAdapter;
-	private SensorGridViewAdapter sensorAdapter;
+	private SceneSwitchAdapter switchAdapter;
+	private SceneSensorAdapter sensorAdapter;
 //	private CameraGridViewAdapter cameraAdapter;
 
 	// private String[] showItem;
@@ -117,36 +119,17 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener
 	 */
 	private void initData()
 	{
-		for (int i = 0; i < MainActivity.switchList.size(); i++)
+		for (int i = 0; i < MainActivity.sceneSwitchList.size(); i++)
 		{
-			DeviceInfo info = MainActivity.switchList.get(i);
-			// ID为0的表示还未分组
-			if (info.getGroupID() == 0)
-			{
-				switchList.add(info);
-			}
+			DeviceInfo info = MainActivity.sceneSwitchList.get(i);
+			switchList.add(info);
 		}
 
-		for (int i = 0; i < MainActivity.sensorList.size(); i++)
+		for (int i = 0; i < MainActivity.sceneSensorList.size(); i++)
 		{
-			DeviceInfo info = MainActivity.sensorList.get(i);
-			// ID为0的表示还未分组
-			if (info.getGroupID() == 0)
-			{
-				sensorList.add(info);
-			}
+			DeviceInfo info = MainActivity.sceneSensorList.get(i);
+			sensorList.add(info);
 		}
-
-//		for (int i = 0; i < MainActivity.cameraList.size(); i++)
-//		{
-//			IPCameraInfo info = MainActivity.cameraList.get(i);
-//			// ID为0的表示还未分组
-//			if (info.groupId == 0)
-//			{
-//				cameraList.add(info);
-//			}
-//		}
-
 	}
 
 	private void initView()
@@ -160,7 +143,7 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener
 		bt_right.setVisibility(View.VISIBLE);
 		bt_right.setBackgroundResource(R.drawable.finish_button_selector);
 		tv_title.setText(R.string.add_group_title);
-		et_scene_name = (EditText) findViewById(R.id.et_group_name);
+		et_scene_name = (EditText) findViewById(R.id.et_scene_name);
 
 		img_scene_icon.setOnClickListener(this);
 		bt_back.setOnClickListener(this);
@@ -169,8 +152,8 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener
 		gv_switch = (GridView) findViewById(R.id.gv_switch);
 		gv_sensor = (GridView) findViewById(R.id.gv_sensor);
 //		gv_camera = (GridView) findViewById(R.id.gv_camera);
-		switchAdapter = new SwitchGridViewAdapter(mContext, switchSelectList);
-		sensorAdapter = new SensorGridViewAdapter(mContext, sensorSelectList);
+		switchAdapter = new SceneSwitchAdapter(mContext, switchSelectList);
+		sensorAdapter = new SceneSensorAdapter(mContext, sensorSelectList);
 //		cameraAdapter = new CameraGridViewAdapter(mContext, cameraSelectList);
 		gv_switch.setAdapter(switchAdapter);
 		gv_sensor.setAdapter(sensorAdapter);
@@ -343,7 +326,7 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener
 
 			if (TextUtils.isEmpty(sceneName))
 			{
-				ToastUtils.show(mContext, getString(R.string.group_name_null));
+				ToastUtils.show(mContext, getString(R.string.scene_name_null));
 				return;
 			}
 			if (Utils.String_length(sceneName) < 6

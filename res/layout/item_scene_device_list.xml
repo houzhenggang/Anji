@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/img_group_head"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/icon_livingroom" />
+
+        <TextView
+            android:id="@+id/tv_tempareture"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_humidity"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_tempareture"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_group_name"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_group_head"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/item_text" />
+
+        <ImageView
+            android:id="@+id/img_delete"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignTop="@+id/img_group_head"
+            android:layout_marginLeft="-15dp"
+            android:layout_marginTop="-10dp"
+            android:layout_toRightOf="@+id/img_group_head"
+            android:background="@drawable/delete_button_selector" />
+    </RelativeLayout>
+
+</LinearLayout>

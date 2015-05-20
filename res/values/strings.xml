@@ -212,6 +212,7 @@
     <string name="please_select_switch">请选择开关</string>
     <string name="please_select_sensor">请选择传感</string>
     <string name="please_select_camera">请选择摄像头</string>
+    <string name="scene_name_null">情景名不能为空</string>
     <string name="group_name_null">分组名不能为空</string>
     <string name="group_had_delete">分组已被删除</string>
     <string name="group_id_null">分组名不能为空</string>

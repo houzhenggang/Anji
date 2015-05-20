@@ -108,12 +108,16 @@ public class MainActivity extends FragmentActivity
 	public static List<GroupInfo> groupList = new ArrayList<GroupInfo>();// 所有分组列表
 	public static List<IPCameraInfo> cameraList = new ArrayList<IPCameraInfo>();// 所有摄像头列表
 	public static List<SceneInfo> sceneList = new ArrayList<SceneInfo>();// 所有情景列表
+	public static List<DeviceInfo> sceneSwitchList = new ArrayList<DeviceInfo>();// 所有情景开关列表
+	public static List<DeviceInfo> sceneSensorList = new ArrayList<DeviceInfo>();// 所有情景传感列表
 	private List<IPCameraInfo> saveCameraList;// 保存的摄像头的列表
 	private SwitchTask switchTask;
 	private SensorTask sensorTask;
 	private CameraTask cameraTask;
 	private GroupTask groupTask;
 	private SceneTask sceneTask;
+	private SceneSwitchTask sceneSwitchTask;
+	private SceneSensorTask sceneSensorTask;
 	public static boolean isForeground = false;
 	private AnjiGroupService groupService;
 	private DatabaseHelper dbHelp;
@@ -372,6 +376,8 @@ public class MainActivity extends FragmentActivity
 		startQurrySensor();
 		startQurryGroup();
 		startQurryScene();
+		startQurrySceneSwitch();
+		startQurrySceneSensor();
 	}
 
 	public void qurryAllSwtich()
@@ -1071,27 +1077,6 @@ public class MainActivity extends FragmentActivity
 		groupTask.execute();
 	}
 	
-	public void startQurryScene()
-	{
-		sceneTask = new SceneTask();
-		sceneTask.execute();
-	}
-	
-	public void cancelQurryScene()
-	{
-		if (sceneTask != null)
-		{
-			sceneTask.cancel(true);
-			sceneTask = null;
-		}
-	}
-
-	public void startQurrySceneWithDialog()
-	{
-		sceneTask = new SceneTask();
-		sceneTask.execute();
-	}
-
 	private void QurryQurryGroup()
 	{
 		if (groupTask != null)
@@ -1137,6 +1122,27 @@ public class MainActivity extends FragmentActivity
 		}
 	}
 	
+	public void startQurryScene()
+	{
+		sceneTask = new SceneTask();
+		sceneTask.execute();
+	}
+	
+	public void cancelQurryScene()
+	{
+		if (sceneTask != null)
+		{
+			sceneTask.cancel(true);
+			sceneTask = null;
+		}
+	}
+
+	public void startQurrySceneWithDialog()
+	{
+		sceneTask = new SceneTask();
+		sceneTask.execute();
+	}
+	
 	private class SceneTask extends AsyncTask<Object, Object, Void>
 	{
 		private List<SceneInfo> sceneTempList;
@@ -1165,6 +1171,109 @@ public class MainActivity extends FragmentActivity
 				tabScene.refreshView();
 			}
 
+		}
+	}
+	
+	public void startQurrySceneSwitch()
+	{
+		// if (progressDialog != null && !progressDialog.isShowing())
+		// {
+		// progressDialog.show();
+		// }
+		sceneSwitchTask = new SceneSwitchTask();
+		sceneSwitchTask.execute();
+	}
+	
+	public void cancelQurrySceneSwitch()
+	{
+		if (sceneSwitchTask != null)
+		{
+			sceneSwitchTask.cancel(true);
+			sceneSwitchTask = null;
+		}
+	}
+
+	private class SceneSwitchTask extends AsyncTask<Object, Object, Void>
+	{
+		private List<DeviceInfo> switchTempList;
+
+		@Override
+		protected Void doInBackground(Object... params)
+		{
+			if (member != null)
+			{
+				switchTempList = NetReq.qurrySceneSwitch(member.getMemberId(),
+						member.getSsuid());
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result)
+		{
+			if (progressDialog != null && progressDialog.isShowing())
+			{
+				progressDialog.dismiss();
+			}
+			if (switchTempList != null && switchTempList.size() > 0)
+			{
+				sceneSwitchList = switchTempList;
+			}
+		}
+	}
+	
+	public void startQurrySceneSensor()
+	{
+		sceneSensorTask = new SceneSensorTask();
+		sceneSensorTask.execute();
+	}
+	
+	public void cancelQurrySceneSensor()
+	{
+		if (sceneSensorTask != null)
+		{
+			sceneSensorTask.cancel(true);
+			sceneSensorTask = null;
+		}
+	}
+
+
+	public void startQurrySceneSensorWithDialog()
+	{
+		if (progressDialog != null && !progressDialog.isShowing())
+		{
+			progressDialog.show();
+		}
+		sceneSensorTask = new SceneSensorTask();
+		sceneSensorTask.execute();
+	}
+
+	private class SceneSensorTask extends AsyncTask<Object, Object, Void>
+	{
+		private List<DeviceInfo> sensorTempList;
+
+		@Override
+		protected Void doInBackground(Object... params)
+		{
+			if (member != null)
+			{
+				sensorTempList = NetReq.qurrySceneSensor(member.getMemberId(),
+						member.getSsuid());
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result)
+		{
+			if (progressDialog != null && progressDialog.isShowing())
+			{
+				progressDialog.dismiss();
+			}
+			if (sensorTempList != null && sensorTempList.size() > 0)
+			{
+				sceneSensorList = sensorTempList;
+			}
 		}
 	}
 
