@@ -113,6 +113,9 @@
             android:name="com.anji.www.activity.AddSceneActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.anji.www.activity.SceneDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.anji.www.activity.GroupDeviceInfo"
             android:screenOrientation="portrait" />
         <activity

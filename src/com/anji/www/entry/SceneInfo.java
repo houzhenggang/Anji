@@ -1,6 +1,6 @@
 package com.anji.www.entry;
 
-public class SceneInfo {
+public class SceneInfo extends ResponseBase {
 	private int sceneId;
 	private String sceneName;
 	private String memberId;// 所在会员ID

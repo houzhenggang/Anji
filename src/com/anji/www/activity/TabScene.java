@@ -1,9 +1,12 @@
 package com.anji.www.activity;
 
 
+
 import com.anji.www.R;
 import com.anji.www.adapter.SceneAdapter;
 import com.anji.www.adapter.SceneAdapter.ItemEvent;
+import com.anji.www.constants.MyConstants;
+import com.anji.www.entry.DeviceInfo;
 import com.anji.www.entry.SceneInfo;
 
 import android.app.Activity;
@@ -14,11 +17,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 /**
- * 主页页面
+ * 情景模式页面
  * 
  * @author moon
  */
@@ -31,7 +36,9 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 	private SceneAdapter mAdapter;
 	private ListView listView;
 	private TextView tvAdd;
-
+	private TextView tvTemperature;
+	private TextView tvHumidity;
+	
 	@Override
 	public void onAttach(Activity activity)
 	{
@@ -56,6 +63,12 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
+		
+	}
+	
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 		initView();
 	}
 
@@ -66,9 +79,38 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 		bt_more.setOnClickListener(this);
 		tvAdd = (TextView) activity.findViewById(R.id.tv_add);
 		tvAdd.setOnClickListener(this);
+		tvTemperature = (TextView) activity.findViewById(R.id.tv_temperature);
+		tvHumidity = (TextView) activity.findViewById(R.id.tv_humidity);
 		
 		mAdapter = new SceneAdapter( activity, MainActivity.sceneList );
 		listView.setAdapter( mAdapter );
+		
+		initHumiture();
+		
+		listView.setOnItemClickListener( new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) 
+			{
+				Intent intent = new Intent( activity, SceneDetailActivity.class );
+				intent.putExtra( "position", position );
+			}
+		});
+	}
+	
+	private void initHumiture()
+	{
+		for (int i = 0; i < MainActivity.sensorList.size(); i++)
+		{
+			DeviceInfo info = MainActivity.sensorList.get(i);
+			if (info.getDeviceType().equals(MyConstants.TEMPARETRUE_SENSOR))
+			{
+				tvTemperature.setText( getString( R.string.s_temperature, info.getTempValue() ) );
+				tvHumidity.setText( info.getHumValue() + "%" );
+				break;
+			}
+		}
 	}
 
 	@Override
@@ -139,6 +181,7 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 		if ( mAdapter != null)
 		{
 			mAdapter.setList( MainActivity.sceneList );
+			initHumiture();
 		}
 	}
 

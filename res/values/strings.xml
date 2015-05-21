@@ -107,6 +107,7 @@
     <string name="humiture">温湿度</string>
     <string name="temperature">温度</string>
     <string name="humidity">湿度</string>
+    <string name="s_temperature">%s℃</string>
     <string name="smoke">烟雾</string>
     <string name="smoke_sensor">烟雾传感</string>
     <string name="infrared">红外</string>
@@ -228,6 +229,8 @@
     <string name="gourpId_null">分组ID不能为空</string>
     <string name="gourpId_delete">分组已被删除</string>
     <string name="add_group_sucess">添加分组成功</string>
+    <string name="add_scene_sucess">添加情景成功</string>
+    <string name="sceneName_exist">情景名称已经存在</string>
     <string name="add">添加</string>
     <string name="add_camera">添加摄像头</string>
     <string name="add_camera_info">如果您的设备上粘贴有二维码，请点击上述按钮，扫描二维码添加设备。</string>

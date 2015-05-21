@@ -22,6 +22,11 @@ public class SceneSensorAdapter extends BaseAdapter
 	private Context myContext;
 	private final static String TAG = "SceneSensorAdapter";
 	private boolean isEdit;// 是否是编辑模式
+	private SensorItemEvent event;
+	
+	public void setEvent(SensorItemEvent event) {
+		this.event = event;
+	}
 
 	public SceneSensorAdapter(Context myContext,
 			List<DeviceInfo> deviceList)
@@ -66,6 +71,7 @@ public class SceneSensorAdapter extends BaseAdapter
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
+		final int pos = position;
 		ItemViewHolder listItemView = null;
 		if (convertView == null)
 		{
@@ -108,7 +114,10 @@ public class SceneSensorAdapter extends BaseAdapter
 								@Override
 								public void onClick(View v)
 								{
-//									myContext.startDeleteSensorToGroup(item);
+									if ( event != null )
+									{
+										event.onSensorDelete( pos );
+									}
 								}
 							});
 
@@ -291,19 +300,22 @@ public class SceneSensorAdapter extends BaseAdapter
 						.setImageResource(R.drawable.add_button_selector);
 				listItemView.tv_group_name.setText("");
 				listItemView.img_delete.setVisibility(View.GONE);
-				// listItemView.img_group_head
-				// .setOnClickListener(new OnClickListener()
-				// {
-				//
-				// @Override
-				// public void onClick(View v)
-				// {
-				// LogUtil.LogI(TAG, "img_group_head onClick");
-				// myContext.showSensorDialog();
-				// }
-				// });
-
 			}
+			
+			 listItemView.img_group_head
+			 .setOnClickListener(new OnClickListener()
+			 {
+			
+			 @Override
+			 public void onClick(View v)
+			 {
+				 LogUtil.LogI(TAG, "img_group_head onClick----");
+				 if ( event != null )
+				{
+					event.onSensorAdd( pos );
+				}
+			 }
+			 });
 		}
 		return convertView;
 	}
@@ -326,5 +338,11 @@ public class SceneSensorAdapter extends BaseAdapter
 		TextView tv_group_name; // 分组名称
 		TextView tv_tempareture; // 温度
 		TextView tv_humidity; // 湿度
+	}
+	
+	public interface SensorItemEvent
+	{
+		public void onSensorDelete( int position );
+		public void onSensorAdd( int position );
 	}
 }

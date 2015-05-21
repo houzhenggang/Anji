@@ -531,4 +531,21 @@ public class JsonParserFactory
 		}
 		return 0;
 	}
+	
+	/**
+	 * 解析添加情景数据
+	 * 
+	 * @param json
+	 * @return
+	 * @throws JSONException
+	 */
+	public static SceneInfo parseAddScene(String json) throws JSONException
+	{
+		if (json == null) return null;
+		JSONObject obj = new JSONObject(json);
+		SceneInfo info = new SceneInfo();
+		info.setResponseStatus(getInt(obj, "responseStatus"));
+		info.setSceneId(getInt(obj, "groupId"));
+		return info;
+	}
 }

@@ -681,4 +681,51 @@ public class NetReq
 		}
 		return null;
 	}
+	
+	/**
+	 * 新增情景
+	 */
+	public static SceneInfo addScene(String memberId, String sceneName,
+			String sessionId, String switchs, String sensors,
+			String ssuid, String iconType)
+	{
+		StringBuffer buffer = new StringBuffer(Url.saveScene);
+		buffer.append("?").append("memberId=").append(memberId).append("&")
+				.append("sceneName=").append(sceneName).append("&")
+				.append("sessionId=").append(sessionId).append("&")
+				.append("ssuid=").append(ssuid).append("&").append("iconType=")
+				.append(iconType).append("&");
+		if (!TextUtils.isEmpty(switchs))
+		{
+			buffer.append("switchInfo=").append(switchs).append("&");
+		}
+		if (!TextUtils.isEmpty(sensors))
+		{
+			buffer.append("sensorInfo=").append(sensors);
+		}
+		String json = CMHttpManager.post(buffer.toString());
+		try
+		{
+			SceneInfo deviceList = JsonParserFactory.parseAddScene(json);
+
+			return deviceList;
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * 查询情景详情
+	 */
+	public static String getSceneDetail(String sceneId)
+	{
+		String json = CMHttpManager.post(Url.qurryScene, "sceneId",
+				sceneId);
+		
+		return json;
+	}
+	
 }

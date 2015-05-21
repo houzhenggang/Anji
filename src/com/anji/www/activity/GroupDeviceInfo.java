@@ -31,11 +31,8 @@ import com.anji.www.view.CustomMultiChoiceDialog;
 import com.ipc.sdk.FSApi;
 import com.ipc.sdk.StatusListener;
 import com.remote.util.IPCameraInfo;
-import com.remote.util.MyStatusListener;
 
 import android.app.Dialog;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;

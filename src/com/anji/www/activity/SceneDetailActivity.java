@@ -1,15 +1,21 @@
 package com.anji.www.activity;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.anji.www.R;
 import com.anji.www.adapter.SceneSensorAdapter;
 import com.anji.www.adapter.SceneSensorAdapter.SensorItemEvent;
 import com.anji.www.adapter.SceneSwitchAdapter;
 import com.anji.www.adapter.SceneSwitchAdapter.SwitchItemEvent;
+import com.anji.www.constants.MyConstants;
 import com.anji.www.entry.DeviceInfo;
 import com.anji.www.entry.SceneInfo;
 import com.anji.www.network.NetReq;
@@ -18,6 +24,7 @@ import com.anji.www.util.LogUtil;
 import com.anji.www.util.ToastUtils;
 import com.anji.www.util.Utils;
 import com.anji.www.view.CustomMultiChoiceDialog;
+import com.remote.util.IPCameraInfo;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -40,17 +47,17 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 /**
- * 添加情景页面
+ * 情景詳細页面
  * 
  * @author Administrator
  */
-public class AddSceneActivity extends BaseActivity implements OnClickListener, SwitchItemEvent, SensorItemEvent
+public class SceneDetailActivity extends BaseActivity implements OnClickListener, SwitchItemEvent, SensorItemEvent
 {
-
+	private static final String TAG = SceneDetailActivity.class.getName();
 	private View addView;
 	private Button bt_back;
 	private Button bt_right;
-	private AddSceneActivity mContext;
+	private SceneDetailActivity mContext;
 
 	private TextView tv_title;
 	private EditText et_scene_name;
@@ -80,6 +87,10 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener, S
 	private Dialog progressDialog;
 	private AddSceneTask addSceneTask;
 	private SceneInfo responseBase;
+	
+	private int position;
+	private int sceneId;
+	private SceneDetailTask sceneDetailTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -98,6 +109,8 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener, S
 		initSetIconTypePop();
 		initSwitchChoiceDialog();
 		initSensorChoiceDialog();
+		// 请求情景详情
+		startSceneDetail();
 	}
 
 	/**
@@ -105,6 +118,10 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener, S
 	 */
 	private void initData()
 	{
+		position = getIntent().getIntExtra( "position", 0 );
+		SceneInfo sceneInfo = MainActivity.sceneList.get(position);
+		sceneId = sceneInfo.getSceneId();
+		
 		for (int i = 0; i < MainActivity.sceneSwitchList.size(); i++)
 		{
 			DeviceInfo info = MainActivity.sceneSwitchList.get(i);
@@ -658,5 +675,288 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener, S
 			}
 		}
 	}
+	
+	private void startSceneDetail()
+	{
+		if (progressDialog != null && !progressDialog.isShowing())
+		{
+			progressDialog.show();
+		}
+		sceneDetailTask = new SceneDetailTask();
+		sceneDetailTask.execute();
+	}
+	
+	private class SceneDetailTask extends AsyncTask<Object, Object, Void>
+	{
+		String responseBase;
+
+		@Override
+		protected Void doInBackground(Object... params)
+		{
+			responseBase = NetReq.getSceneDetail( sceneId + "");
+			try
+			{
+
+				if (responseBase == null) return null;
+				JSONObject myObj = new JSONObject(responseBase);
+				switchSelectList.clear();
+				sensorSelectList.clear();
+
+				JSONArray vsAdObj = myObj.getJSONArray("switchs");
+				LogUtil.LogI(TAG, "switchs==" + vsAdObj.length());
+				for (int i = 0; i < vsAdObj.length(); i++)
+				{
+					DeviceInfo info = new DeviceInfo();
+
+					JSONObject tempobj2 = vsAdObj.getJSONObject(i);
+					info.setDeviceChannel(getInt(tempobj2, "channel"));
+					info.setDeviceMac(getStr(tempobj2, "code"));
+					info.setGroupID(getInt(tempobj2, "groupId"));
+					info.setGroupName(getStr(tempobj2, "groupName"));
+					info.setDeviceName(getStr(tempobj2, "name"));
+					// 1：开 0：关 2：离线
+					byte state = (byte) getInt(tempobj2, "status");
+					if (state == 2)
+					{
+						info.setDeviceState((byte) 0xAA);
+					}
+					else
+					{
+						info.setDeviceState(state);
+					}
+					info.setDeviceId(getInt(tempobj2, "switchId"));
+					int type = getInt(tempobj2, "type");
+					if (type == 1)
+					{
+						// 壁灯 1：壁灯，2：插座
+						info.setDeviceType(MyConstants.NORMAL_LIGHT);
+					}
+					else
+					{
+						// 2：插座
+						info.setDeviceType(MyConstants.SOCKET);
+					}
+					info.setType(0);// 0为开关，1为传感
+					info.setMemberId(MyApplication.member.getMemberId());
+					info.setSsuid(MyApplication.member.getSsuid());
+					LogUtil.LogI(TAG, "groupSwitchList.add");
+					switchSelectList.add(info);
+
+				}
+
+				JSONArray vsAdObj2 = myObj.getJSONArray("sensors");
+				LogUtil.LogI(TAG, "sensors==" + vsAdObj2.length());
+				for (int i = 0; i < vsAdObj2.length(); i++)
+				{
+					DeviceInfo info = new DeviceInfo();
+					// DeviceInfo info2; // 如果是温湿度就得分为两个
+					JSONObject obj = vsAdObj2.getJSONObject(i);
+					int sensorState;
+					int type = getInt(obj, "type");
+					// 类型，1：温度湿度，2:烟雾3：红外4：穿戴
+
+					byte deviceState = (byte) getInt(obj, "deviceStatus");
+					// 设备状态 1：正常（0） 2：离线（AA） 3：错误（非零）
+					if (deviceState == 2)
+					{
+						info.setDeviceState((byte) 0xAA);
+					}
+					else if (deviceState == 1)
+					{
+						info.setDeviceState((byte) 0);
+					}
+					else
+					{
+						info.setDeviceState((byte) deviceState);
+					}
+					info.setSsuid(MyApplication.member.getSsuid());
+					info.setMemberId(MyApplication.member.getMemberId());
+					switch (type)
+					{
+					case 1:
+						// 类型，1：温度湿度，2:烟雾3：红外4：穿戴
+
+						// info2 = new DeviceInfo();
+
+						info.setMemberId(MyApplication.member.getMemberId());
+						info.setDeviceType(MyConstants.TEMPARETRUE_SENSOR);
+						info.setDeviceBattery((int) getDouble(obj, "battery"));
+						info.setDeviceMac(getStr(obj, "code"));
+
+						info.setGroupID(getInt(obj, "groupId"));
+						info.setGroupName(getStr(obj, "groupName"));
+						info.setTempValue((float) getDouble(obj, "temp"));
+						info.setDeviceChannel(getInt(obj, "tempNo"));// 温度通道号
+						info.setDeviceName(getStr(obj, "name"));
+						info.setDeviceId(getInt(obj, "sensorId"));
+						info.setHumValue((float) getDouble(obj, "hum"));
+						if (!TextUtils.isEmpty(getStr(obj, "humNo")))
+						{
+							info.setDeviceChannel2(getInt(obj, "humNo"));// 湿度通道号
+						}
+						info.setType(1);// 0为开关，1为传感
+						LogUtil.LogI(TAG, "1groupSensorList.add");
+						sensorSelectList.add(info);
+						// list.add(info2);
+						break;
+					case 2:
+						// 类型，1：温度湿度，2:烟雾3：红外4：穿戴
+						info.setType(1);// 0为开关，1为传感
+						info.setMemberId(MyApplication.member.getMemberId());
+						info.setDeviceType(MyConstants.SMOKE_SENSOR);
+						info.setDeviceBattery((int) getDouble(obj, "battery"));
+						info.setDeviceMac(getStr(obj, "code"));
+						info.setGroupID(getInt(obj, "groupId"));
+						info.setGroupName(getStr(obj, "groupName"));
+						sensorState = getInt(obj, "smogStatus");
+						if (sensorState == 20)
+						{
+							info.setSensorState((byte) 0x20);
+						}
+						else
+						{
+							info.setSensorState((byte) 0x10);
+						}
+						info.setDeviceChannel(getInt(obj, "channel"));// 通道号
+						info.setDeviceName(getStr(obj, "name"));
+						info.setDeviceId(getInt(obj, "sensorId"));
+						LogUtil.LogI(TAG, "2groupSensorList.add");
+						sensorSelectList.add(info);
+						break;
+					case 3:
+						// 类型，1：温度湿度，2:烟雾3：红外4：穿戴
+						info.setType(1);// 0为开关，1为传感
+						info.setMemberId(MyApplication.member.getMemberId());
+						info.setDeviceType(MyConstants.HUMAN_BODY_SENSOR);
+						info.setDeviceBattery((int) getDouble(obj, "battery"));
+						info.setDeviceMac(getStr(obj, "code"));
+						info.setGroupID(getInt(obj, "groupId"));
+						info.setGroupName(getStr(obj, "groupName"));
+						sensorState = getInt(obj, "infraredStatus");
+						if (sensorState == 20)
+						{
+							info.setSensorState((byte) 0x20);
+						}
+						else
+						{
+							info.setSensorState((byte) 0x10);
+						}
+						int infraredSwitch = getInt(obj, "infraredSwitch");
+						if (infraredSwitch == 1)
+						{
+							// 1开2关
+							info.setInfraredSwitch(true);
+						}
+						else
+						{
+							info.setInfraredSwitch(false);
+						}
+						info.setDeviceChannel(getInt(obj, "channel"));// 通道号
+						info.setDeviceName(getStr(obj, "name"));
+						info.setDeviceId(getInt(obj, "sensorId"));
+						LogUtil.LogI(TAG, "3groupSensorList.add");
+						sensorSelectList.add(info);
+						break;
+					case 4:
+						// 类型，1：温度湿度，2:烟雾3：红外4：穿戴
+						info.setType(1);// 0为开关，1为传感
+						info.setMemberId(MyApplication.member.getMemberId());
+						info.setDeviceType(MyConstants.BRACELET);
+						info.setDeviceBattery((int) getDouble(obj, "battery"));
+						info.setDeviceMac(getStr(obj, "code"));
+						info.setGroupID(getInt(obj, "groupId"));
+						info.setGroupName(getStr(obj, "groupName"));
+						info.setDeviceChannel(getInt(obj, "channel"));// 通道号
+						info.setDeviceName(getStr(obj, "name"));
+						info.setDeviceId(getInt(obj, "sensorId"));
+						LogUtil.LogI(TAG, "4groupSensorList.add");
+						sensorSelectList.add(info);
+						break;
+
+					default:
+						break;
+					}
+				}
+
+				
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result)
+		{
+			if (progressDialog != null && progressDialog.isShowing())
+			{
+				progressDialog.dismiss();
+			}
+			if (!TextUtils.isEmpty(responseBase))
+			{
+				switchAdapter.notifyDataSetChanged();
+				sensorAdapter.notifyDataSetChanged();
+			}
+			else
+			{
+				// 网络请求失败
+			}
+
+		}
+	}
+	
+	private static String getStr(JSONObject o, String key) throws JSONException
+	{
+		if (o.has(key))
+		{
+			try
+			{
+				return URLDecoder.decode(o.getString(key), "UTF-8");
+			}
+			catch (Exception e)
+			{
+				return o.getString(key);
+			}
+		}
+		return null;
+	}
+
+	private static int getInt(JSONObject o, String key) throws JSONException
+	{
+		if (o.has(key))
+		{
+			if (!TextUtils.isEmpty(getStr(o, key))
+					&& !getStr(o, key).equals("null"))
+			{
+				return o.getInt(key);
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		return 0;
+	}
+
+	private static double getDouble(JSONObject o, String key)
+			throws JSONException
+	{
+		if (o.has(key))
+		{
+			if (!TextUtils.isEmpty(getStr(o, key))
+					&& !getStr(o, key).equals("null"))
+			{
+				return o.getDouble(key);
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		return 0;
+	}
+
 
 }

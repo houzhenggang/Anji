@@ -22,6 +22,11 @@ public class SceneSwitchAdapter extends BaseAdapter
 	private Context myContext;
 	private final static String TAG = "SceneSwitchAdapter";
 	private boolean isEdit;// 是否是编辑模式
+	private SwitchItemEvent event;
+	
+	public void setEvent(SwitchItemEvent event) {
+		this.event = event;
+	}
 
 	public SceneSwitchAdapter( Context myContext,
 			List<DeviceInfo> deviceList)
@@ -91,6 +96,7 @@ public class SceneSwitchAdapter extends BaseAdapter
 			if (position >= 0 && position < deviceList.size())
 			{
 				final DeviceInfo item = deviceList.get(position);
+				final int pos = position;
 				// 设备信息
 				if (isEdit)
 				{
@@ -102,7 +108,10 @@ public class SceneSwitchAdapter extends BaseAdapter
 								@Override
 								public void onClick(View v)
 								{
-//									 myContext.startDeleteSwtichToGroup(item);
+									if ( event != null )
+									{
+										event.onSwitchDelete( pos );
+									}
 								}
 							});
 
@@ -253,5 +262,10 @@ public class SceneSwitchAdapter extends BaseAdapter
 		ImageView img_group_head; // 分组头像
 		ImageView img_delete; // 删除按钮
 		TextView tv_group_name; // 分组名称
+	}
+	
+	public interface SwitchItemEvent
+	{
+		public void onSwitchDelete( int position );
 	}
 }
