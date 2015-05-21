@@ -121,6 +121,7 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 		position = getIntent().getIntExtra( "position", 0 );
 		SceneInfo sceneInfo = MainActivity.sceneList.get(position);
 		sceneId = sceneInfo.getSceneId();
+		sceneName = sceneInfo.getSceneName();
 		
 		for (int i = 0; i < MainActivity.sceneSwitchList.size(); i++)
 		{
@@ -145,8 +146,9 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 		bt_right.setText("");
 		bt_right.setVisibility(View.VISIBLE);
 		bt_right.setBackgroundResource(R.drawable.finish_button_selector);
-		tv_title.setText(R.string.add_group_title);
+		tv_title.setText( sceneName );
 		et_scene_name = (EditText) findViewById(R.id.et_scene_name);
+		et_scene_name.setText( sceneName );
 
 		img_scene_icon.setOnClickListener(this);
 		bt_back.setOnClickListener(this);
@@ -159,8 +161,6 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 		gv_switch.setAdapter(switchAdapter);
 		gv_sensor.setAdapter(sensorAdapter);
 		
-		switchAdapter.setEdit( true );
-		sensorAdapter.setEdit( true );
 		switchAdapter.setEvent( this );
 		sensorAdapter.setEvent( this );
 		
@@ -696,185 +696,51 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 			responseBase = NetReq.getSceneDetail( sceneId + "");
 			try
 			{
-
-				if (responseBase == null) return null;
-				JSONObject myObj = new JSONObject(responseBase);
-				switchSelectList.clear();
-				sensorSelectList.clear();
-
-				JSONArray vsAdObj = myObj.getJSONArray("switchs");
-				LogUtil.LogI(TAG, "switchs==" + vsAdObj.length());
-				for (int i = 0; i < vsAdObj.length(); i++)
+				if ( TextUtils.isEmpty( responseBase ) )
+				{
+					return null;
+				}
+				JSONArray arr = new JSONArray(responseBase);
+				for (int i = 0; i < arr.length(); i++)
 				{
 					DeviceInfo info = new DeviceInfo();
-
-					JSONObject tempobj2 = vsAdObj.getJSONObject(i);
-					info.setDeviceChannel(getInt(tempobj2, "channel"));
-					info.setDeviceMac(getStr(tempobj2, "code"));
-					info.setGroupID(getInt(tempobj2, "groupId"));
-					info.setGroupName(getStr(tempobj2, "groupName"));
-					info.setDeviceName(getStr(tempobj2, "name"));
+					
+					JSONObject obj = arr.getJSONObject(i);
+					
+					info.setDeviceId( getInt(obj, "deviceId") );
+					info.setDeviceName( getStr(obj, "deviceName") );
 					// 1：开 0：关 2：离线
-					byte state = (byte) getInt(tempobj2, "status");
+					byte state = (byte) getInt(obj, "deviceStatus");
 					if (state == 2)
 					{
 						info.setDeviceState((byte) 0xAA);
 					}
 					else
 					{
-						info.setDeviceState(state);
+						info.setDeviceState( state );
 					}
-					info.setDeviceId(getInt(tempobj2, "switchId"));
-					int type = getInt(tempobj2, "type");
+					
+					info.setMemberId(MyApplication.member.getMemberId());
+					info.setSsuid(MyApplication.member.getSsuid());
+					
+					int type = getInt(obj, "deviceType");
+					
 					if (type == 1)
 					{
 						// 壁灯 1：壁灯，2：插座
 						info.setDeviceType(MyConstants.NORMAL_LIGHT);
+						info.setType(0);// 0为开关，1为传感
+						
+						switchSelectList.add(info);
 					}
 					else
 					{
-						// 2：插座
-						info.setDeviceType(MyConstants.SOCKET);
-					}
-					info.setType(0);// 0为开关，1为传感
-					info.setMemberId(MyApplication.member.getMemberId());
-					info.setSsuid(MyApplication.member.getSsuid());
-					LogUtil.LogI(TAG, "groupSwitchList.add");
-					switchSelectList.add(info);
-
-				}
-
-				JSONArray vsAdObj2 = myObj.getJSONArray("sensors");
-				LogUtil.LogI(TAG, "sensors==" + vsAdObj2.length());
-				for (int i = 0; i < vsAdObj2.length(); i++)
-				{
-					DeviceInfo info = new DeviceInfo();
-					// DeviceInfo info2; // 如果是温湿度就得分为两个
-					JSONObject obj = vsAdObj2.getJSONObject(i);
-					int sensorState;
-					int type = getInt(obj, "type");
-					// 类型，1：温度湿度，2:烟雾3：红外4：穿戴
-
-					byte deviceState = (byte) getInt(obj, "deviceStatus");
-					// 设备状态 1：正常（0） 2：离线（AA） 3：错误（非零）
-					if (deviceState == 2)
-					{
-						info.setDeviceState((byte) 0xAA);
-					}
-					else if (deviceState == 1)
-					{
-						info.setDeviceState((byte) 0);
-					}
-					else
-					{
-						info.setDeviceState((byte) deviceState);
-					}
-					info.setSsuid(MyApplication.member.getSsuid());
-					info.setMemberId(MyApplication.member.getMemberId());
-					switch (type)
-					{
-					case 1:
 						// 类型，1：温度湿度，2:烟雾3：红外4：穿戴
-
-						// info2 = new DeviceInfo();
-
-						info.setMemberId(MyApplication.member.getMemberId());
-						info.setDeviceType(MyConstants.TEMPARETRUE_SENSOR);
-						info.setDeviceBattery((int) getDouble(obj, "battery"));
-						info.setDeviceMac(getStr(obj, "code"));
-
-						info.setGroupID(getInt(obj, "groupId"));
-						info.setGroupName(getStr(obj, "groupName"));
-						info.setTempValue((float) getDouble(obj, "temp"));
-						info.setDeviceChannel(getInt(obj, "tempNo"));// 温度通道号
-						info.setDeviceName(getStr(obj, "name"));
-						info.setDeviceId(getInt(obj, "sensorId"));
-						info.setHumValue((float) getDouble(obj, "hum"));
-						if (!TextUtils.isEmpty(getStr(obj, "humNo")))
-						{
-							info.setDeviceChannel2(getInt(obj, "humNo"));// 湿度通道号
-						}
-						info.setType(1);// 0为开关，1为传感
-						LogUtil.LogI(TAG, "1groupSensorList.add");
-						sensorSelectList.add(info);
-						// list.add(info2);
-						break;
-					case 2:
-						// 类型，1：温度湿度，2:烟雾3：红外4：穿戴
-						info.setType(1);// 0为开关，1为传感
-						info.setMemberId(MyApplication.member.getMemberId());
-						info.setDeviceType(MyConstants.SMOKE_SENSOR);
-						info.setDeviceBattery((int) getDouble(obj, "battery"));
-						info.setDeviceMac(getStr(obj, "code"));
-						info.setGroupID(getInt(obj, "groupId"));
-						info.setGroupName(getStr(obj, "groupName"));
-						sensorState = getInt(obj, "smogStatus");
-						if (sensorState == 20)
-						{
-							info.setSensorState((byte) 0x20);
-						}
-						else
-						{
-							info.setSensorState((byte) 0x10);
-						}
-						info.setDeviceChannel(getInt(obj, "channel"));// 通道号
-						info.setDeviceName(getStr(obj, "name"));
-						info.setDeviceId(getInt(obj, "sensorId"));
-						LogUtil.LogI(TAG, "2groupSensorList.add");
-						sensorSelectList.add(info);
-						break;
-					case 3:
-						// 类型，1：温度湿度，2:烟雾3：红外4：穿戴
-						info.setType(1);// 0为开关，1为传感
-						info.setMemberId(MyApplication.member.getMemberId());
+						// 设备状态 1：正常（0） 2：离线（AA） 3：错误（非零）
 						info.setDeviceType(MyConstants.HUMAN_BODY_SENSOR);
-						info.setDeviceBattery((int) getDouble(obj, "battery"));
-						info.setDeviceMac(getStr(obj, "code"));
-						info.setGroupID(getInt(obj, "groupId"));
-						info.setGroupName(getStr(obj, "groupName"));
-						sensorState = getInt(obj, "infraredStatus");
-						if (sensorState == 20)
-						{
-							info.setSensorState((byte) 0x20);
-						}
-						else
-						{
-							info.setSensorState((byte) 0x10);
-						}
-						int infraredSwitch = getInt(obj, "infraredSwitch");
-						if (infraredSwitch == 1)
-						{
-							// 1开2关
-							info.setInfraredSwitch(true);
-						}
-						else
-						{
-							info.setInfraredSwitch(false);
-						}
-						info.setDeviceChannel(getInt(obj, "channel"));// 通道号
-						info.setDeviceName(getStr(obj, "name"));
-						info.setDeviceId(getInt(obj, "sensorId"));
-						LogUtil.LogI(TAG, "3groupSensorList.add");
-						sensorSelectList.add(info);
-						break;
-					case 4:
-						// 类型，1：温度湿度，2:烟雾3：红外4：穿戴
 						info.setType(1);// 0为开关，1为传感
-						info.setMemberId(MyApplication.member.getMemberId());
-						info.setDeviceType(MyConstants.BRACELET);
-						info.setDeviceBattery((int) getDouble(obj, "battery"));
-						info.setDeviceMac(getStr(obj, "code"));
-						info.setGroupID(getInt(obj, "groupId"));
-						info.setGroupName(getStr(obj, "groupName"));
-						info.setDeviceChannel(getInt(obj, "channel"));// 通道号
-						info.setDeviceName(getStr(obj, "name"));
-						info.setDeviceId(getInt(obj, "sensorId"));
-						LogUtil.LogI(TAG, "4groupSensorList.add");
+						
 						sensorSelectList.add(info);
-						break;
-
-					default:
-						break;
 					}
 				}
 

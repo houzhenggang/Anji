@@ -95,6 +95,7 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 			{
 				Intent intent = new Intent( activity, SceneDetailActivity.class );
 				intent.putExtra( "position", position );
+				startActivity(intent);
 			}
 		});
 	}
