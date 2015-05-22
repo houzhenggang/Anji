@@ -40,6 +40,11 @@ public class SceneSensorAdapter extends BaseAdapter
 		this.deviceList = list;
 		notifyDataSetChanged();
 	}
+	
+	public List<DeviceInfo> getList()
+	{
+		return this.deviceList;
+	}
 
 	@Override
 	public int getCount()

@@ -63,8 +63,9 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 	private EditText et_scene_name;
 	private PopupWindow setIconType;
 	private ImageView img_scene_icon;
+	private Button bt_delete_scene;
 	private static final String Tag = "AddGroupActivity";
-	private int iconType;// 0大厅，1婴儿房，2，浴室 3，卧室 4，厨房 5，老人房 6 书房
+	private String iconType;// 0大厅，1婴儿房，2，浴室 3，卧室 4，厨房 5，老人房 6 书房
 	private List<DeviceInfo> switchList;
 	private List<DeviceInfo> sensorList;
 	private List<DeviceInfo> switchSelectList;// 选择的设备
@@ -86,11 +87,13 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 	private String sceneName;
 	private Dialog progressDialog;
 	private AddSceneTask addSceneTask;
-	private SceneInfo responseBase;
+	private SceneInfo sceneInfo;
 	
 	private int position;
 	private int sceneId;
 	private SceneDetailTask sceneDetailTask;
+	private boolean isEdit;
+	private String responseBase;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -119,9 +122,10 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 	private void initData()
 	{
 		position = getIntent().getIntExtra( "position", 0 );
-		SceneInfo sceneInfo = MainActivity.sceneList.get(position);
+		sceneInfo = MainActivity.sceneList.get(position);
 		sceneId = sceneInfo.getSceneId();
 		sceneName = sceneInfo.getSceneName();
+		iconType = sceneInfo.getIconType();
 		
 		for (int i = 0; i < MainActivity.sceneSwitchList.size(); i++)
 		{
@@ -143,16 +147,20 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		bt_back = (Button) findViewById(R.id.bt_back);
 		bt_right = (Button) findViewById(R.id.bt_right);
-		bt_right.setText("");
+		bt_delete_scene = (Button) findViewById(R.id.bt_delete_scene);
+		bt_right.setText(R.string.edit);
 		bt_right.setVisibility(View.VISIBLE);
-		bt_right.setBackgroundResource(R.drawable.finish_button_selector);
 		tv_title.setText( sceneName );
 		et_scene_name = (EditText) findViewById(R.id.et_scene_name);
 		et_scene_name.setText( sceneName );
-
+		
+		et_scene_name.setVisibility( View.GONE );
+		img_scene_icon.setVisibility( View.GONE );
+		
 		img_scene_icon.setOnClickListener(this);
 		bt_back.setOnClickListener(this);
 		bt_right.setOnClickListener(this);
+		bt_delete_scene.setOnClickListener(this);
 
 		gv_switch = (GridView) findViewById(R.id.gv_switch);
 		gv_sensor = (GridView) findViewById(R.id.gv_sensor);
@@ -171,6 +179,10 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id)
 			{
+				if ( !isEdit )
+				{
+					return;
+				}
 				LogUtil.LogI(Tag, "switchSelectList.size=" + switchSelectList.size());
 				LogUtil.LogI(Tag, "position=" + position);
 				if (switchSelectList != null)
@@ -189,7 +201,7 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 						else
 						{
 							LogUtil.LogI(Tag, "setOnItemClickListener");
-							DeviceInfo item = switchSelectList.get(position);
+							DeviceInfo item = switchAdapter.getList().get(position);
 							if (item.getDeviceState() == 0)
 							{
 								item.setDeviceState( (byte)0x01 );
@@ -198,7 +210,7 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 							{
 								item.setDeviceState( (byte)0x00 );
 							}
-							mHandler.sendEmptyMessage( 0x0001 );
+							mHandler.sendEmptyMessage( 0x0003 );
 						}
 					}
 				}
@@ -268,33 +280,70 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 		switch (id)
 		{
 		case R.id.bt_back:
-			finish();
-			overridePendingTransition(android.R.anim.slide_in_left,
-					android.R.anim.slide_out_right);
+			if ( isEdit )
+			{
+				et_scene_name.setVisibility( View.GONE );
+				img_scene_icon.setVisibility( View.GONE );
+				bt_delete_scene.setVisibility( View.GONE );
+				bt_right.setText(R.string.edit);
+				isEdit = !isEdit;
+				if ( !TextUtils.isEmpty( responseBase ) )
+				{
+					parseData();
+				}
+				switchAdapter.setEdit( isEdit );
+				sensorAdapter.setEdit( isEdit );
+				mHandler.sendEmptyMessage( 0x0003 );
+				mHandler.sendEmptyMessage( 0x0004 );
+			}
+			else
+			{
+				finish();
+				overridePendingTransition(android.R.anim.slide_in_left,
+						android.R.anim.slide_out_right);
+			}
 			break;
 		case R.id.bt_right:
-			// TODO完成，发送请求
-			sceneName = et_scene_name.getText().toString().trim();
-
-			if (TextUtils.isEmpty(sceneName))
+			if ( isEdit )
 			{
-				ToastUtils.show(mContext, getString(R.string.scene_name_null));
-				return;
+				// TODO完成，发送请求
+				sceneName = et_scene_name.getText().toString().trim();
+	
+				if (TextUtils.isEmpty(sceneName))
+				{
+					ToastUtils.show(mContext, getString(R.string.scene_name_null));
+					return;
+				}
+				if (Utils.String_length(sceneName) < 6
+						|| Utils.String_length(sceneName) > 10)
+				{
+					ToastUtils.show(mContext, getString(R.string.length_error2));
+					return;
+				}
+				//startAddGroupTask();
 			}
-			if (Utils.String_length(sceneName) < 6
-					|| Utils.String_length(sceneName) > 10)
+			else
 			{
-				ToastUtils.show(mContext, getString(R.string.length_error2));
-				return;
+				isEdit = !isEdit;
+				setIcon();
+				et_scene_name.setVisibility( View.VISIBLE );
+				img_scene_icon.setVisibility( View.VISIBLE );
+				bt_delete_scene.setVisibility( View.VISIBLE );
+				bt_right.setText(R.string.finish);
+				
+				switchAdapter.setEdit( isEdit );
+				sensorAdapter.setEdit( isEdit );
+				
+				mHandler.sendEmptyMessage( 0x0003 );
+				mHandler.sendEmptyMessage( 0x0004 );
 			}
-			startAddGroupTask();
 
 			break;
 		case R.id.img_scene_icon:
 			showPopupWindow(setIconType, img_scene_icon);
 			break;
 		case R.id.img_livingroom:
-			iconType = 0;
+			iconType = "0";
 			img_scene_icon
 					.setBackgroundResource(R.drawable.group_living_button_selector);
 			dismissIconTypePop();
@@ -303,41 +352,79 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 			img_scene_icon
 					.setBackgroundResource(R.drawable.group_baby_button_selector);
 			dismissIconTypePop();
-			iconType = 1;
+			iconType = "1";
 			break;
 		case R.id.img_bathroom:
 			img_scene_icon
 					.setBackgroundResource(R.drawable.group_bathroom_button_selector);
 			dismissIconTypePop();
-			iconType = 2;
+			iconType = "2";
 			break;
 		case R.id.img_bedroom:
 			img_scene_icon
 					.setBackgroundResource(R.drawable.group_bedroom_button_selector);
 			dismissIconTypePop();
-			iconType = 3;
+			iconType = "3";
 			break;
 		case R.id.img_kitchenroom:
 			dismissIconTypePop();
 			img_scene_icon
 					.setBackgroundResource(R.drawable.group_kitchen_button_selector);
-			iconType = 4;
+			iconType = "4";
 			break;
 		case R.id.img_oldroom:
 			dismissIconTypePop();
 			img_scene_icon
 					.setBackgroundResource(R.drawable.group_oldman_button_selector);
-			iconType = 5;
+			iconType = "5";
 			break;
 		case R.id.img_readingroom:
 			dismissIconTypePop();
 			img_scene_icon
 					.setBackgroundResource(R.drawable.group_readingroom_button_selector);
-			iconType = 6;
+			iconType = "6";
 			break;
 
-		default:
+		case R.id.bt_delete_scene: // 刪除
 			break;
+		}
+	}
+	
+	private void setIcon()
+	{
+		if (iconType.equals("1"))
+		{
+			img_scene_icon.setImageResource(R.drawable.group_baby_button_selector);
+		}
+		else if (iconType.equals("2"))
+		{
+			img_scene_icon
+			.setImageResource(R.drawable.group_bathroom_button_selector);
+		}
+		else if (iconType.equals("3"))
+		{
+			img_scene_icon
+			.setImageResource(R.drawable.group_bedroom_button_selector);
+		}
+		else if (iconType.equals("4"))
+		{
+			img_scene_icon
+			.setImageResource(R.drawable.group_kitchen_button_selector);
+		}
+		else if (iconType.equals("5"))
+		{
+			img_scene_icon
+			.setImageResource(R.drawable.group_oldman_button_selector);
+		}
+		else if (iconType.equals("6"))
+		{
+			img_scene_icon
+			.setImageResource(R.drawable.group_readingroom_button_selector);
+		}
+		else 
+		{
+			img_scene_icon
+			.setImageResource(R.drawable.icon_livingroom);
 		}
 	}
 
@@ -497,7 +584,7 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 			{
 				e.printStackTrace();
 			}
-			responseBase = NetReq.addScene(MyApplication.member.getMemberId(),
+			sceneInfo = NetReq.addScene(MyApplication.member.getMemberId(),
 					groupName2, MyApplication.member.getSessionId(),
 					switchBuffer.toString(), sensorBuffer.toString(),
 					MyApplication.member.getSsuid(),
@@ -512,7 +599,7 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 			{
 				progressDialog.dismiss();
 			}
-			if (responseBase != null)
+			if (sceneInfo != null)
 			{
 				/**
 				 * 200：成功 300：系统异常 401：memberId不能为空 402：组名称不能为空
@@ -520,75 +607,75 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 				 * 406：cameras参数格式错误 407：会员不存在 408：无效的sessionID 409：组名称已存在
 				 * 410：ssuid不能为空
 				 */
-				if (responseBase.getResponseStatus() == 200)
+				if (sceneInfo.getResponseStatus() == 200)
 				{
-					responseBase.setSceneName(sceneName);
-					responseBase.setIconType(iconType + "");
-					responseBase
+					sceneInfo.setSceneName(sceneName);
+					sceneInfo.setIconType(iconType + "");
+					sceneInfo
 							.setMemberId(MyApplication.member.getMemberId());
-					responseBase.setSsuid(MyApplication.member.getSsuid());
-					MainActivity.sceneList.add(responseBase);
+					sceneInfo.setSsuid(MyApplication.member.getSsuid());
+					MainActivity.sceneList.add(sceneInfo);
 					ToastUtils.show(mContext,
 							getString(R.string.add_scene_sucess));
 
 					onBackPressed();
 				}
-				else if (responseBase.getResponseStatus() == 300)
+				else if (sceneInfo.getResponseStatus() == 300)
 				{
 					ToastUtils.show(mContext,
 							mContext.getString(R.string.system_error));
 				}
-				else if (responseBase.getResponseStatus() == 401)
+				else if (sceneInfo.getResponseStatus() == 401)
 				{
 					ToastUtils.show(mContext,
 							mContext.getString(R.string.name_null));
 				}
-				else if (responseBase.getResponseStatus() == 402)
+				else if (sceneInfo.getResponseStatus() == 402)
 				{
 					ToastUtils.show(mContext,
 							mContext.getString(R.string.scene_name_null));
 				}
-				else if (responseBase.getResponseStatus() == 403)
+				else if (sceneInfo.getResponseStatus() == 403)
 				{
 					ToastUtils.show(mContext,
 							mContext.getString(R.string.sessionID_null));
 				}
-				else if (responseBase.getResponseStatus() == 404)
+				else if (sceneInfo.getResponseStatus() == 404)
 				{
 					ToastUtils.show(mContext,
 							mContext.getString(R.string.switchs_agrs_error));
 				}
-				else if (responseBase.getResponseStatus() == 405)
+				else if (sceneInfo.getResponseStatus() == 405)
 				{
 					ToastUtils.show(mContext,
 							mContext.getString(R.string.sensors_agrs_error));
 				}
-				else if (responseBase.getResponseStatus() == 405)
+				else if (sceneInfo.getResponseStatus() == 405)
 				{
 					ToastUtils.show(mContext,
 							mContext.getString(R.string.cameras_agrs_error));
 				}
-				else if (responseBase.getResponseStatus() == 406)
+				else if (sceneInfo.getResponseStatus() == 406)
 				{
 					ToastUtils.show(mContext,
 							mContext.getString(R.string.cameras_agrs_error));
 				}
-				else if (responseBase.getResponseStatus() == 407)
+				else if (sceneInfo.getResponseStatus() == 407)
 				{
 					ToastUtils.show(mContext,
 							mContext.getString(R.string.member_null));
 				}
-				else if (responseBase.getResponseStatus() == 408)
+				else if (sceneInfo.getResponseStatus() == 408)
 				{
 					ToastUtils.show(mContext,
 							mContext.getString(R.string.login_error));
 				}
-				else if (responseBase.getResponseStatus() == 409)
+				else if (sceneInfo.getResponseStatus() == 409)
 				{
 					ToastUtils.show(mContext,
 							mContext.getString(R.string.sceneName_exist));
 				}
-				else if (responseBase.getResponseStatus() == 410)
+				else if (sceneInfo.getResponseStatus() == 410)
 				{
 					ToastUtils.show(mContext,
 							mContext.getString(R.string.ssuid_null));
@@ -625,6 +712,13 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 				sensorAdapter.setList(sensorSelectList);
 				sensorAdapter.notifyDataSetChanged();
 				break;
+			case 0x0003:
+				switchAdapter.notifyDataSetChanged();
+				break;
+
+			case 0x0004:
+				sensorAdapter.notifyDataSetChanged();
+				break;
 			}
 		};
 	};
@@ -646,6 +740,10 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 	@Override
 	public void onSensorAdd( int position ) 
 	{
+		if ( !isEdit )
+		{
+			return;
+		}
 		if (sensorSelectList != null)
 		{
 
@@ -661,7 +759,8 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 				}
 				else
 				{
-					DeviceInfo item = sensorSelectList.get(position);
+					DeviceInfo item = sensorAdapter.getList().get(position);
+					
 					if (item.getDeviceState() == 0)
 					{
 						item.setDeviceState( (byte)0x01 );
@@ -670,7 +769,7 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 					{
 						item.setDeviceState( (byte)0x00 );
 					}
-					mHandler.sendEmptyMessage( 0x0002 );
+					mHandler.sendEmptyMessage( 0x0004 );
 				}
 			}
 		}
@@ -688,68 +787,15 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 	
 	private class SceneDetailTask extends AsyncTask<Object, Object, Void>
 	{
-		String responseBase;
-
 		@Override
 		protected Void doInBackground(Object... params)
 		{
 			responseBase = NetReq.getSceneDetail( sceneId + "");
-			try
+			if ( TextUtils.isEmpty( responseBase ) )
 			{
-				if ( TextUtils.isEmpty( responseBase ) )
-				{
-					return null;
-				}
-				JSONArray arr = new JSONArray(responseBase);
-				for (int i = 0; i < arr.length(); i++)
-				{
-					DeviceInfo info = new DeviceInfo();
-					
-					JSONObject obj = arr.getJSONObject(i);
-					
-					info.setDeviceId( getInt(obj, "deviceId") );
-					info.setDeviceName( getStr(obj, "deviceName") );
-					// 1：开 0：关 2：离线
-					byte state = (byte) getInt(obj, "deviceStatus");
-					if (state == 2)
-					{
-						info.setDeviceState((byte) 0xAA);
-					}
-					else
-					{
-						info.setDeviceState( state );
-					}
-					
-					info.setMemberId(MyApplication.member.getMemberId());
-					info.setSsuid(MyApplication.member.getSsuid());
-					
-					int type = getInt(obj, "deviceType");
-					
-					if (type == 1)
-					{
-						// 壁灯 1：壁灯，2：插座
-						info.setDeviceType(MyConstants.NORMAL_LIGHT);
-						info.setType(0);// 0为开关，1为传感
-						
-						switchSelectList.add(info);
-					}
-					else
-					{
-						// 类型，1：温度湿度，2:烟雾3：红外4：穿戴
-						// 设备状态 1：正常（0） 2：离线（AA） 3：错误（非零）
-						info.setDeviceType(MyConstants.HUMAN_BODY_SENSOR);
-						info.setType(1);// 0为开关，1为传感
-						
-						sensorSelectList.add(info);
-					}
-				}
-
-				
+				return null;
 			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
+			parseData();
 			return null;
 		}
 
@@ -762,14 +808,82 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 			}
 			if (!TextUtils.isEmpty(responseBase))
 			{
-				switchAdapter.notifyDataSetChanged();
-				sensorAdapter.notifyDataSetChanged();
+				mHandler.sendEmptyMessage( 0x0001 );
+				mHandler.sendEmptyMessage( 0x0002 );
 			}
 			else
 			{
 				// 网络请求失败
 			}
 
+		}
+	}
+	
+	private void parseData()
+	{
+		switchSelectList.clear();
+		sensorSelectList.clear();
+		try
+		{
+			if ( TextUtils.isEmpty( responseBase ) )
+			{
+				return;
+			}
+			JSONArray arr = new JSONArray(responseBase);
+			for (int i = 0; i < arr.length(); i++)
+			{
+				DeviceInfo info = new DeviceInfo();
+				
+				JSONObject obj = arr.getJSONObject(i);
+				
+				info.setDeviceId( getInt(obj, "deviceId") );
+				info.setDeviceName( getStr(obj, "deviceName") );
+				// 1：开 0：关 2：离线
+				byte state = (byte) getInt(obj, "deviceStatus");
+				if (state == 2)
+				{
+					info.setDeviceState((byte) 0xAA);
+				}
+				else
+				{
+					info.setDeviceState( state );
+				}
+				
+				info.setMemberId(MyApplication.member.getMemberId());
+				info.setSsuid(MyApplication.member.getSsuid());
+				
+				int type = getInt(obj, "deviceType");
+				
+				// 0：插座, 1: 壁灯 ,2:红外
+				if (type == 0)
+				{
+					
+					info.setDeviceType(MyConstants.SOCKET);
+					info.setType(0);// 0为开关，1为传感
+					
+					switchSelectList.add(info);
+				}
+				else if (type == 1)
+				{
+					info.setDeviceType(MyConstants.NORMAL_LIGHT);
+					info.setType(0);// 0为开关，1为传感
+					
+					switchSelectList.add(info);
+				}
+				else
+				{
+					info.setDeviceType(MyConstants.HUMAN_BODY_SENSOR);
+					info.setType(1);// 0为开关，1为传感
+					
+					sensorSelectList.add(info);
+				}
+			}
+
+			
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 	}
 	

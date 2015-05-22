@@ -20,7 +20,6 @@ public class SceneSwitchAdapter extends BaseAdapter
 {
 	private List<DeviceInfo> deviceList;
 	private Context myContext;
-	private final static String TAG = "SceneSwitchAdapter";
 	private boolean isEdit;// 是否是编辑模式
 	private SwitchItemEvent event;
 	
@@ -39,6 +38,11 @@ public class SceneSwitchAdapter extends BaseAdapter
 	{
 		this.deviceList = list;
 		notifyDataSetChanged();
+	}
+	
+	public List<DeviceInfo> getList()
+	{
+		return this.deviceList;
 	}
 
 	@Override

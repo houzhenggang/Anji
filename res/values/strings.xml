@@ -100,6 +100,7 @@
     <string name="device_out_line">该设备已离线</string>
     <string name="device_delete">该设备已删除</string>
     <string name="delete_group">删除分组</string>
+    <string name="delete_scene">刪除情景</string>
     <string name="group">分组</string>
     <string name="device_none">无此设备</string>
     <string name="order_send_sucess">命令发送成功</string>
