@@ -1,17 +1,22 @@
 package com.anji.www.activity;
 
-
-
 import com.anji.www.R;
 import com.anji.www.adapter.SceneAdapter;
 import com.anji.www.adapter.SceneAdapter.ItemEvent;
 import com.anji.www.constants.MyConstants;
 import com.anji.www.entry.DeviceInfo;
+import com.anji.www.entry.ResponseBase;
 import com.anji.www.entry.SceneInfo;
+import com.anji.www.network.NetReq;
+import com.anji.www.util.DisplayUtils;
+import com.anji.www.util.ToastUtils;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,11 +44,19 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 	private TextView tvTemperature;
 	private TextView tvHumidity;
 	
+	private Dialog progressDialog;
+	private SceneSwitchTask sceneSwitchTask;
+	
+	private int sceneId;
+	private int position;
+	private int status;
+	
 	@Override
 	public void onAttach(Activity activity)
 	{
 		super.onAttach(activity);
 		this.activity = (MainActivity) activity;
+		progressDialog = DisplayUtils.createDialog( activity, "处理中..." );
 	}
 
 	@Override
@@ -84,8 +97,7 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 		
 		mAdapter = new SceneAdapter( activity, MainActivity.sceneList );
 		listView.setAdapter( mAdapter );
-		
-		initHumiture();
+		mAdapter.setEvent( this );
 		
 		listView.setOnItemClickListener( new OnItemClickListener() {
 
@@ -124,6 +136,7 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 	public void onResume()
 	{
 		super.onResume();
+		initHumiture();
 	}
 
 	@Override
@@ -148,6 +161,11 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 	public void onDestroy()
 	{
 		super.onDestroy();
+		if (progressDialog != null )
+		{
+			progressDialog.dismiss();
+			progressDialog = null;
+		}
 	}
 
 	@Override
@@ -189,14 +207,99 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 	@Override
 	public void onCheckChange(int position, boolean isChecked)
 	{
-		SceneInfo item = MainActivity.sceneList.get( position );
-		// 操作开关
-		item.setOn( !item.isOn() );
-		if ( mAdapter != null)
-		{
-			mAdapter.setList( MainActivity.sceneList );
-		}
-		// 请求进行打开或关闭情景模式
+		TabScene.this.position = position;
 		
+		SceneInfo item = MainActivity.sceneList.get( position );
+		// 请求进行打开或关闭情景模式
+		sceneId = item.getSceneId();
+		status = item.isOn() ? 1 : 0;
+		
+		startSceneSwitch();
 	}
+	
+	private void startSceneSwitch()
+	{
+		if (progressDialog != null && !progressDialog.isShowing())
+		{
+			progressDialog.show();
+		}
+		sceneSwitchTask = new SceneSwitchTask();
+		sceneSwitchTask.execute();
+	}
+	
+	private class SceneSwitchTask extends AsyncTask<Object, Object, Void>
+	{
+		ResponseBase response;
+		@Override
+		protected Void doInBackground(Object... params)
+		{
+			response = NetReq.switchScene( sceneId + "", status + "", MyApplication.member.getSsuid() );
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result)
+		{
+			if (progressDialog != null && progressDialog.isShowing())
+			{
+				progressDialog.dismiss();
+			}
+
+			if (response != null)
+			{
+				/**
+				 * 200：成功 300：系统异常
+				 */
+				if (response.getResponseStatus() == 200)
+				{
+					mHandler.sendEmptyMessage( 0x0001 );
+				}
+				else if (response.getResponseStatus() == 300)
+				{
+					mHandler.sendEmptyMessage( 0x0002 );
+				}
+			}
+		}
+	}
+	
+	
+	
+	Handler mHandler = new Handler()
+	{
+		public void handleMessage(android.os.Message msg)
+		{
+			switch ( msg.what ) {
+			case 0x0001:
+				SceneInfo item = MainActivity.sceneList.get( position );
+				// 操作开关
+				item.setOn( !item.isOn() );
+				if ( item.isOn() ) // 如果打开该情景模式，则关闭别的情景模式
+				{
+					int size = MainActivity.sceneList.size();
+					for ( int i=0;i<size;i++ )
+					{
+						if ( i != position )
+						{
+							MainActivity.sceneList.get( i ).setOn( false );
+						}
+					}
+				}
+				if ( mAdapter != null)
+				{
+					mAdapter.setList( MainActivity.sceneList );
+				}
+				ToastUtils.show( activity,
+						activity.getString(R.string.switch_scene_success));
+				break;
+			case 0x0002:
+				if ( mAdapter != null)
+				{
+					mAdapter.setList( MainActivity.sceneList );
+				}
+				ToastUtils.show( activity,
+						activity.getString(R.string.system_error));
+				break;
+			}
+		}
+	};
 }

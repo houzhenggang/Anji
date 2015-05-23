@@ -9,6 +9,7 @@ import com.anji.www.entry.SceneInfo;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
@@ -132,12 +133,11 @@ public class SceneAdapter extends BaseAdapter
 					listItemView.cb_item_switch.setChecked( item.isOn() );
 					
 					final int pos = position;
-					listItemView.cb_item_switch.setOnCheckedChangeListener( new OnCheckedChangeListener() 
-					{
+					final boolean isChecked = item.isOn();
+					listItemView.cb_item_switch.setOnClickListener( new OnClickListener() {
 						
 						@Override
-						public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) 
-						{
+						public void onClick(View v) {
 							if ( event != null )
 							{
 								event.onCheckChange( pos, isChecked );

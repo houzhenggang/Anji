@@ -120,7 +120,7 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener, S
 
 	private void initView()
 	{
-		progressDialog = DisplayUtils.createDialog(mContext);
+		progressDialog = DisplayUtils.createDialog( this, "¥¶¿Ì÷–..." );
 		img_scene_icon = (ImageView) findViewById(R.id.img_scene_icon);
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		bt_back = (Button) findViewById(R.id.bt_back);

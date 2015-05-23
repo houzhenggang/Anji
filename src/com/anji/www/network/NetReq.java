@@ -718,6 +718,32 @@ public class NetReq
 	}
 	
 	/**
+	 * 更新情景
+	 */
+	public static String updateScene(String memberId, String sceneName,
+			String sceneId, String switchs, String sensors,
+			String ssuid, String iconType)
+	{
+		StringBuffer buffer = new StringBuffer(Url.updateScene);
+		buffer.append("?").append("memberId=").append(memberId).append("&")
+				.append("sceneName=").append(sceneName).append("&")
+				.append("id=").append(sceneId).append("&")
+				.append("ssuid=").append(ssuid).append("&").append("iconType=")
+				.append(iconType).append("&");
+		if (!TextUtils.isEmpty(switchs))
+		{
+			buffer.append("switchInfo=").append(switchs).append("&");
+		}
+		if (!TextUtils.isEmpty(sensors))
+		{
+			buffer.append("sensorInfo=").append(sensors);
+		}
+		String json = CMHttpManager.post( buffer.toString() );
+		
+		return json;
+	}
+	
+	/**
 	 * 查询情景详情
 	 */
 	public static String getSceneDetail(String sceneId)
@@ -728,4 +754,30 @@ public class NetReq
 		return json;
 	}
 	
+	/**
+	 * 删除情景
+	 */
+	public static ResponseBase deleteScene(String sceneId)
+	{
+		ResponseBase response = CMHttpManager.post(Url.deleteScene, ResponseBase.class, "sceneId",
+				sceneId);
+		
+		return response;
+	}
+
+	/**
+	 * 切换情景
+	 * @param sceneId
+	 * @param status
+	 * @param ssuid
+	 * @return
+	 */
+	public static ResponseBase switchScene(String sceneId, String status,
+			String ssuid) {
+		
+		ResponseBase response = CMHttpManager.post(Url.switchScene, ResponseBase.class, "sceneId",
+				sceneId, "status", status, "ssuid", ssuid );
+		
+		return response;
+	}
 }
