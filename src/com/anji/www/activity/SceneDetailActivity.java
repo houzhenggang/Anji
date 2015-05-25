@@ -308,7 +308,7 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 					ToastUtils.show(mContext, getString(R.string.scene_name_null));
 					return;
 				}
-				if (Utils.String_length(sceneName) < 6
+				if (Utils.String_length(sceneName) < 1
 						|| Utils.String_length(sceneName) > 10)
 				{
 					ToastUtils.show(mContext, getString(R.string.length_error2));
@@ -607,11 +607,20 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 					{
 						info = switchSelectList.get( i );
 						datas.append( "{" ).append( "\"deviceId\":" ).append( info.getDeviceId() ).append( "," );
-						datas.append( "\"deviceName\":" ).append( info.getDeviceName() ).append( "," );
+						datas.append( "\"deviceName\":\"" ).append( info.getDeviceName() ).append( "\"," );
 						datas.append( "\"deviceStatus\":" ).append( info.getDeviceState() ).append( "," );
-						datas.append( "\"deviceType\":" ).append( info.getDeviceType() ).append( "}" );
+						if ( MyConstants.SOCKET == info.getDeviceType() )
+						{
+							datas.append( "\"deviceType\":" ).append( 0 ).append( "}" );
+						}
+						else if ( MyConstants.NORMAL_LIGHT == info.getDeviceType() )
+						{
+							datas.append( "\"deviceType\":" ).append( 1 ).append( "}" );
+						}
+						
 						datas.append( "," );
 					}
+					
 					size = sensorSelectList.size();
 					for ( int i=0;i<size;i++ )
 					{
@@ -619,7 +628,10 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 						datas.append( "{" ).append( "\"deviceId\":" ).append( info.getDeviceId() ).append( "," );
 						datas.append( "\"deviceName\":\"" ).append( info.getDeviceName() ).append( "\"," );
 						datas.append( "\"deviceStatus\":" ).append( info.getDeviceState() ).append( "," );
-						datas.append( "\"deviceType\":" ).append( info.getDeviceType() ).append( "}" );
+						if ( MyConstants.HUMAN_BODY_SENSOR == info.getDeviceType() )
+						{
+							datas.append( "\"deviceType\":" ).append( 2 ).append( "}" );
+						}
 						datas.append( "," );
 					}
 					datas.delete( datas.length() - 1, datas.length() );
@@ -990,6 +1002,7 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 		img_scene_icon.setVisibility( View.GONE );
 		bt_delete_scene.setVisibility( View.GONE );
 		bt_right.setText(R.string.edit);
+		tv_title.setText( sceneName );
 		isEdit = !isEdit;
 		if ( !TextUtils.isEmpty( responseBase ) )
 		{

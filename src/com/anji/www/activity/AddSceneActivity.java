@@ -264,7 +264,7 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener, S
 				ToastUtils.show(mContext, getString(R.string.scene_name_null));
 				return;
 			}
-			if (Utils.String_length(sceneName) < 6
+			if (Utils.String_length(sceneName) < 1
 					|| Utils.String_length(sceneName) > 10)
 			{
 				ToastUtils.show(mContext, getString(R.string.length_error2));

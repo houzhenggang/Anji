@@ -1,5 +1,7 @@
 package com.anji.www.entry;
 
+import android.text.TextUtils;
+
 public class DeviceInfo implements Comparable<DeviceInfo>
 {
 	private int deviceId;// Éè±¸µÄID£»
@@ -63,7 +65,7 @@ public class DeviceInfo implements Comparable<DeviceInfo>
 
 	public String getDeviceName()
 	{
-		return deviceName;
+		return TextUtils.isEmpty( deviceName ) ? "" : deviceName;
 	}
 
 	public void setDeviceName(String deviceName)

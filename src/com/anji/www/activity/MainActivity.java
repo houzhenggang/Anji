@@ -371,13 +371,13 @@ public class MainActivity extends FragmentActivity
 				myHandler.obtainMessage(UPDATE).sendToTarget();
 			};
 		}.start();
+		startQurryScene();
+		startQurrySceneSwitch();
+		startQurrySceneSensor();
 		startQurrySwitch();
 		startQurryCamera();
 		startQurrySensor();
 		startQurryGroup();
-		startQurryScene();
-		startQurrySceneSwitch();
-		startQurrySceneSensor();
 	}
 
 	public void qurryAllSwtich()

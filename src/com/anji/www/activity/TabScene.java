@@ -212,7 +212,8 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 		SceneInfo item = MainActivity.sceneList.get( position );
 		// 请求进行打开或关闭情景模式
 		sceneId = item.getSceneId();
-		status = item.isOn() ? 1 : 0;
+		// 取相反的状态
+		status = item.isOn() ? 0 : 1;
 		
 		startSceneSwitch();
 	}
