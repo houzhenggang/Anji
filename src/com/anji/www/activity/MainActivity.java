@@ -372,11 +372,11 @@ public class MainActivity extends FragmentActivity
 			};
 		}.start();
 		startQurryScene();
+		startQurrySensor();
 		startQurrySceneSwitch();
 		startQurrySceneSensor();
 		startQurrySwitch();
 		startQurryCamera();
-		startQurrySensor();
 		startQurryGroup();
 	}
 
@@ -825,6 +825,7 @@ public class MainActivity extends FragmentActivity
 				tabMain.refreshView();
 				// tabSwtich.refreshView();
 				tabSense.refreshView();
+				tabScene.refreshView();
 				// tabCamera.refreshView();
 				break;
 			case 2:

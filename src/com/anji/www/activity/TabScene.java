@@ -43,6 +43,7 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 	private TextView tvAdd;
 	private TextView tvTemperature;
 	private TextView tvHumidity;
+	private View layoutHumiture;
 	
 	private Dialog progressDialog;
 	private SceneSwitchTask sceneSwitchTask;
@@ -94,6 +95,7 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 		tvAdd.setOnClickListener(this);
 		tvTemperature = (TextView) activity.findViewById(R.id.tv_temperature);
 		tvHumidity = (TextView) activity.findViewById(R.id.tv_humidity);
+		layoutHumiture = activity.findViewById(R.id.layout_humiture);
 		
 		mAdapter = new SceneAdapter( activity, MainActivity.sceneList );
 		listView.setAdapter( mAdapter );
@@ -114,16 +116,26 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 	
 	private void initHumiture()
 	{
-		for (int i = 0; i < MainActivity.sensorList.size(); i++)
+		int size = MainActivity.sensorList.size();
+		if ( size != 0 )
 		{
-			DeviceInfo info = MainActivity.sensorList.get(i);
-			if (info.getDeviceType().equals(MyConstants.TEMPARETRUE_SENSOR))
+			layoutHumiture.setVisibility( View.VISIBLE );
+			for (int i = 0; i < size; i++)
 			{
-				tvTemperature.setText( getString( R.string.s_temperature, info.getTempValue() ) );
-				tvHumidity.setText( info.getHumValue() + "%" );
-				break;
+				DeviceInfo info = MainActivity.sensorList.get(i);
+				if (info.getDeviceType().equals(MyConstants.TEMPARETRUE_SENSOR))
+				{
+					tvTemperature.setText( getString( R.string.s_temperature, info.getTempValue() ) );
+					tvHumidity.setText( info.getHumValue() + "%" );
+					break;
+				}
 			}
 		}
+		else
+		{
+			layoutHumiture.setVisibility( View.GONE );
+		}
+		
 	}
 
 	@Override
