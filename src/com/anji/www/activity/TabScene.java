@@ -12,6 +12,8 @@ import com.anji.www.entry.SceneInfo;
 import com.anji.www.network.NetReq;
 import com.anji.www.util.DisplayUtils;
 import com.anji.www.util.ToastUtils;
+import com.anji.www.view.CustomSingleChoiceDialog;
+import com.anji.www.view.CustomSingleChoiceDialog.ButtonClickEvent;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -34,7 +36,8 @@ import android.widget.TextView;
  * 
  * @author moon
  */
-public class TabScene extends Fragment implements OnClickListener, BaseFragment, ItemEvent
+public class TabScene extends Fragment implements OnClickListener, 
+					BaseFragment, ItemEvent, ButtonClickEvent
 {
 	private static final String TAG = TabScene.class.getName();
 	
@@ -56,6 +59,7 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 	private int status;
 	private ArrayList<DeviceInfo> humitures = new ArrayList<DeviceInfo>();
 	private int curHumiturePos;
+	private CustomSingleChoiceDialog mDialog;
 	
 	@Override
 	public void onAttach(Activity activity)
@@ -148,6 +152,10 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 			if ( humitures.size() == 1 )
 			{
 				tvHumitureName.setCompoundDrawablesWithIntrinsicBounds( 0, 0, 0, 0 );
+			}
+			else
+			{
+				mDialog = new CustomSingleChoiceDialog( getActivity(), humitures, "", curHumiturePos, this );
 			}
 		}
 		else
@@ -337,4 +345,12 @@ public class TabScene extends Fragment implements OnClickListener, BaseFragment,
 			}
 		}
 	};
+
+	@Override
+	public void onOkClick(int which) 
+	{
+		tvTemperature.setText( getString( R.string.s_temperature, humitures.get( curHumiturePos ).getTempValue() ) );
+		tvHumidity.setText( humitures.get( curHumiturePos ).getHumValue() + "%" );
+		tvHumitureName.setText( humitures.get( curHumiturePos ).getDeviceName() );
+	}
 }
