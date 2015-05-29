@@ -57,12 +57,12 @@
                 android:id="@+id/tv_humiture_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:drawablePadding="5dp"
                 android:layout_marginRight="5dp"
-                android:gravity="right"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
+                android:drawablePadding="5dp"
                 android:drawableRight="@drawable/tkn_next_click"
+                android:gravity="right"
                 android:textColor="@color/title_background"
                 android:textSize="24sp" />
         </LinearLayout>
@@ -82,10 +82,18 @@
 
             <TextView
                 android:id="@+id/tv_temperature"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:text="0℃"
+                android:textColor="@color/red"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_temperature_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:textColor="@color/red"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -106,10 +114,18 @@
 
             <TextView
                 android:id="@+id/tv_humidity"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:text="0%"
+                android:textColor="@color/red"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_humidity_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:textColor="@color/red"
                 android:textSize="16sp" />
         </LinearLayout>

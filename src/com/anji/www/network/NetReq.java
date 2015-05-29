@@ -651,6 +651,12 @@ public class NetReq
 		{
 			List<DeviceInfo> deviceList = JsonParserFactory
 					.parseSwitchList(json);
+			
+			int size = deviceList.size();
+			for (int i = 0; i < size; i++)
+			{
+				deviceList.get( i ).setDeviceState( ( byte )0 );
+			}
 
 			return deviceList;
 		}
@@ -672,6 +678,12 @@ public class NetReq
 		{
 			List<DeviceInfo> deviceList = JsonParserFactory
 					.parseSenceList(json);
+			
+			int size = deviceList.size();
+			for (int i = 0; i < size; i++)
+			{
+				deviceList.get( i ).setDeviceState( ( byte )0 );
+			}
 
 			return deviceList;
 		}

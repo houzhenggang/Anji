@@ -49,6 +49,8 @@ public class TabScene extends Fragment implements OnClickListener,
 	private TextView tvTemperature;
 	private TextView tvHumidity;
 	private TextView tvHumitureName;
+	private TextView tvHumidityDescribe;
+	private TextView tvTemperatureDescribe;
 	private View layoutHumiture;
 	
 	private Dialog progressDialog;
@@ -107,6 +109,8 @@ public class TabScene extends Fragment implements OnClickListener,
 		tvHumidity = (TextView) activity.findViewById(R.id.tv_humidity);
 		layoutHumiture = activity.findViewById(R.id.layout_humiture);
 		tvHumitureName = (TextView) activity.findViewById(R.id.tv_humiture_name);
+		tvHumidityDescribe = (TextView) activity.findViewById( R.id.tv_humidity_describe );
+		tvTemperatureDescribe = (TextView) activity.findViewById( R.id.tv_temperature_describe );
 		
 		mAdapter = new SceneAdapter( activity, MainActivity.sceneList );
 		listView.setAdapter( mAdapter );
@@ -144,9 +148,7 @@ public class TabScene extends Fragment implements OnClickListener,
 			
 			if ( curHumiturePos < humitures.size() )
 			{
-				tvTemperature.setText( getString( R.string.s_temperature, humitures.get( curHumiturePos ).getTempValue() ) );
-				tvHumidity.setText( humitures.get( curHumiturePos ).getHumValue() + "%" );
-				tvHumitureName.setText( humitures.get( curHumiturePos ).getDeviceName() );
+				updateHumiture();
 			}
 			layoutHumiture.setVisibility( View.VISIBLE );
 			if ( humitures.size() == 1 )
@@ -205,6 +207,12 @@ public class TabScene extends Fragment implements OnClickListener,
 			progressDialog.dismiss();
 			progressDialog = null;
 		}
+		
+		if ( mDialog != null )
+		{
+			mDialog.dismiss();
+			mDialog = null;
+		}
 	}
 
 	@Override
@@ -231,7 +239,10 @@ public class TabScene extends Fragment implements OnClickListener,
 			activity.startActivity(intent);
 			break;
 		case R.id.tv_humiture_name:
-			
+			if ( humitures.size() >= 1 && mDialog != null )
+			{
+				mDialog.show();
+			}
 			break;
 		}
 	}
@@ -349,8 +360,89 @@ public class TabScene extends Fragment implements OnClickListener,
 	@Override
 	public void onOkClick(int which) 
 	{
-		tvTemperature.setText( getString( R.string.s_temperature, humitures.get( curHumiturePos ).getTempValue() ) );
-		tvHumidity.setText( humitures.get( curHumiturePos ).getHumValue() + "%" );
+		mDialog.hide();
+		curHumiturePos = which;
+		updateHumiture();
+	}
+	
+	private void updateHumiture()
+	{
+		float humitidy = humitures.get( curHumiturePos ).getHumValue();
+		float temperature = humitures.get( curHumiturePos ).getTempValue();
+		
+		// 设置湿度
+		String describe = null;
+		if (humitidy <= 30)
+		{
+			tvHumidity.setTextColor( getResources().getColor( R.color.dry ) );
+			tvHumidityDescribe.setTextColor( getResources().getColor( R.color.dry ) );
+			describe = getString( R.string.dry );
+		}
+		else if (humitidy > 30 && humitidy <= 45)
+		{
+			tvHumidity.setTextColor( getResources().getColor( R.color.slightly_dry ) );
+			tvHumidityDescribe.setTextColor( getResources().getColor( R.color.slightly_dry ) );
+			describe = getString(R.string.slightly_dry);
+		}
+		else if (humitidy > 45 && humitidy <= 60)
+		{
+			tvHumidity.setTextColor( getResources().getColor(R.color.comfortable ) );
+			tvHumidityDescribe.setTextColor( getResources().getColor(R.color.comfortable ) );
+			describe = getString(R.string.comfortable);
+		}
+		else if (humitidy > 60 && humitidy <= 80)
+		{
+			tvHumidity.setTextColor( getResources().getColor(R.color.mild_and_wet ) );
+			tvHumidityDescribe.setTextColor( getResources().getColor(R.color.mild_and_wet ) );
+			describe = getString(R.string.mild_and_wet);
+		}
+		else if (humitidy > 80)
+		{
+			tvHumidity.setTextColor( getResources().getColor(R.color.wet_color ) );
+			tvHumidityDescribe.setTextColor( getResources().getColor(R.color.wet_color ) );
+			describe = getString(R.string.wet);
+		}
+		tvHumidity.setText( humitidy + "%" );
+		tvHumidityDescribe.setText( describe );
+		
+		// 设置温度
+		if (temperature <= 5)
+		{
+			tvTemperature.setTextColor( getResources().getColor(R.color.cold ) );
+			tvTemperatureDescribe.setTextColor( getResources().getColor(R.color.cold ) );
+			describe = getString(R.string.cold);
+		}
+		else if (temperature > 6 && temperature <= 15)
+		{
+			tvTemperature.setTextColor( getResources().getColor(
+							R.color.low_temperature ) );
+			tvTemperatureDescribe.setTextColor( getResources().getColor(R.color.low_temperature ) );
+			describe = getString(R.string.low_temperature);
+		}
+		else if (temperature > 15 && temperature <= 25)
+		{
+			tvTemperature.setTextColor( getResources().getColor(R.color.comfortable ) );
+			tvTemperatureDescribe.setTextColor( getResources().getColor(R.color.comfortable ) );
+			describe = getString(R.string.comfortable);
+		}
+		else if (temperature > 25 && temperature <= 32)
+		{
+			tvTemperature.setTextColor( getResources().getColor(R.color.hot ) );
+			tvTemperatureDescribe.setTextColor( getResources().getColor(R.color.hot ) );
+			describe = getString(R.string.hot);
+		}
+		else if (temperature > 32)
+		{
+			tvTemperature.setTextColor( getResources().getColor(
+							R.color.high_temperature ) );
+			tvTemperatureDescribe.setTextColor( getResources().getColor(
+					R.color.high_temperature ) );
+			describe = getString(R.string.high_temperature);
+		}
+		tvTemperature.setText( getString( R.string.s_temperature, temperature ) );
+		tvTemperatureDescribe.setText( describe );
+		
 		tvHumitureName.setText( humitures.get( curHumiturePos ).getDeviceName() );
+		
 	}
 }

@@ -40,7 +40,7 @@ public class CustomSingleChoiceDialog extends Dialog
 	public CustomSingleChoiceDialog( Context context, List<DeviceInfo> list, 
 			String title, int index, ButtonClickEvent event ) 
 	{
-		super( context );
+		super( context, R.style.SelectDialog );
 		
 		this.mContext = context;
 		this.list = list;
@@ -75,12 +75,12 @@ public class CustomSingleChoiceDialog extends Dialog
         
         listView.setSelection( index );
         
-        Window dialogWindow = getWindow();
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        DisplayMetrics d = mContext.getResources().getDisplayMetrics(); 
-        lp.width = (int) (d.widthPixels * 0.8); 
-        lp.height = Utils.dip2px(mContext, 300);
-        dialogWindow.setAttributes(lp);
+//        Window dialogWindow = getWindow();
+//        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+//        DisplayMetrics d = mContext.getResources().getDisplayMetrics(); 
+//        lp.width = (int) (d.widthPixels * 0.8); 
+//        lp.height = (int) (d.heightPixels * 0.4);
+//        dialogWindow.setAttributes(lp);
         
         setListener();
 	}
@@ -103,7 +103,7 @@ public class CustomSingleChoiceDialog extends Dialog
 			@Override
 			public void onClick(View v) 
 			{
-				CustomSingleChoiceDialog.this.dismiss();
+				CustomSingleChoiceDialog.this.hide();
 			}
 		});
 		
