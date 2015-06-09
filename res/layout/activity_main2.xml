@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:id="@+id/tab_content"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.0" />
+
+        <RadioGroup
+            android:id="@+id/tabs_rg"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/tab_rb_scene"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/tab_bg"
+                android:button="@null"
+                android:checked="true"
+                android:drawableTop="@drawable/selector_main"
+                android:gravity="center"
+                android:paddingTop="3dp"
+                android:singleLine="true"
+                android:text="@string/tab_main"
+                android:textColor="@drawable/radio_text_color"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/tab_rb_main"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/tab_bg"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_main"
+                android:gravity="center"
+                android:paddingTop="3dp"
+                android:singleLine="true"
+                android:text="@string/tab_group"
+                android:textColor="@drawable/radio_text_color"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/tab_rb_bluetooth"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/tab_bg"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_switch"
+                android:gravity="center"
+                android:paddingTop="3dp"
+                android:singleLine="true"
+                android:text="@string/tab_switch"
+                android:textColor="@drawable/radio_text_color"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/tab_rb_set"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/tab_bg"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_sense"
+                android:gravity="center"
+                android:paddingTop="3dp"
+                android:singleLine="true"
+                android:text="@string/tab_sense"
+                android:textColor="@drawable/radio_text_color"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/tab_rb_more"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/tab_bg"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_camera"
+                android:gravity="center"
+                android:paddingTop="3dp"
+                android:singleLine="true"
+                android:text="@string/tab_camera"
+                android:textColor="@drawable/radio_text_color"
+                android:textSize="18sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+</LinearLayout>

@@ -9,6 +9,7 @@ import cn.jpush.android.api.TagAliasCallback;
 import cn.jpush.android.service.PushService;
 
 import com.anji.www.R;
+import com.anji.www.activity.MenuFragment.MenuEvent;
 import com.anji.www.adapter.FragmentTabAdapter;
 import com.anji.www.db.DatabaseHelper;
 import com.anji.www.db.service.AnjiDBservice;
@@ -27,6 +28,8 @@ import com.anji.www.util.Utils;
 import com.decoder.util.ExampleUtil;
 import com.fos.sdk.FosSdkJNI;
 import com.ipc.sdk.FSApi;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.remote.util.IPCameraInfo;
 
 import android.app.Dialog;
@@ -36,12 +39,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.graphics.Canvas;
 import android.os.Build.VERSION;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -57,7 +63,7 @@ import android.widget.TextView;
  * 
  * @author Administrator
  */
-public class MainActivity extends FragmentActivity
+public class MainActivity extends SlidingFragmentActivity implements MenuEvent
 {
 	public List<Fragment> fragments;
 	private RadioGroup rgs;
@@ -260,7 +266,7 @@ public class MainActivity extends FragmentActivity
 	}
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
+	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -292,7 +298,9 @@ public class MainActivity extends FragmentActivity
 			myUdpService.sendBroadCastUdp(bytes);
 
 		}
+		
 		initView();
+		initSlidingMenu();
 		initAlertDialog();
 		initData();
 		registerMessageReceiver();
@@ -443,6 +451,59 @@ public class MainActivity extends FragmentActivity
 			// isInNet = false;
 		}
 	};
+	
+	
+	private SlidingMenu mSlidingMenu;
+	private MenuFragment mMenuFrag;
+	
+	private void addFragment(Fragment fragment, int resId, String tag) {
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		FragmentTransaction transaction = fragmentManager.beginTransaction();
+		transaction.replace(resId, fragment, tag);
+		transaction.commit();
+	}
+
+	// 初始化左侧菜单
+	private void initSlidingMenu() {
+		mSlidingMenu = getSlidingMenu();
+		
+		setBehindContentView(R.layout.main_left_layout);// 设置左边的菜单布局
+		
+		
+		mMenuFrag = new MenuFragment( this, R.id.content_frame, this );
+		mMenuFrag.setFragments(fragments);
+		
+		addFragment(mMenuFrag, R.id.main_left_fragment, "menu");
+		addFragment(tabScene, R.id.content_frame, "home");
+
+		// customize the SlidingMenu
+//		mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+		mSlidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+//		mSlidingMenu.setShadowWidthRes(R.dimen.slidingmenu_offset);
+		mSlidingMenu.setFadeEnabled(false);
+		mSlidingMenu.setFadeDegree(0.25f);
+		mSlidingMenu.setMode(SlidingMenu.LEFT);
+//		mSlidingMenu.setBackgroundImage(R.drawable.slidingmenu_bg);
+		
+		
+		mSlidingMenu.setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
+			@Override
+			public void transformCanvas(Canvas canvas, float percentOpen) {
+				float scale = (float) (percentOpen * 0.25 + 0.75);
+				canvas.scale(scale, scale, -canvas.getWidth() / 2,
+						canvas.getHeight() / 2);
+			}
+		});
+//
+		mSlidingMenu.setAboveCanvasTransformer(new SlidingMenu.CanvasTransformer() {
+			@Override
+			public void transformCanvas(Canvas canvas, float percentOpen) {
+				float scale = (float) (1 - percentOpen * 0.25);
+				canvas.scale(scale, scale, 0, canvas.getHeight() / 2);
+			}
+		});
+	}
+
 
 	private void initView()
 	{
@@ -460,25 +521,26 @@ public class MainActivity extends FragmentActivity
 		fragments.add(tabSwtich);
 		fragments.add(tabSense);
 		fragments.add(tabCamera);
+		
 //		tab_rb_main.setTextColor(getResources().getColor(
 //				R.color.title_background));
-		rgs = (RadioGroup) findViewById(R.id.tabs_rg);
-		FragmentTabAdapter tabAdapter = new FragmentTabAdapter(this, fragments,
-				R.id.tab_content, rgs);
-		tabAdapter
-				.setOnRgsExtraCheckedChangedListener(new FragmentTabAdapter.OnRgsExtraCheckedChangedListener()
-				{
-					@Override
-					public void OnRgsExtraCheckedChanged(RadioGroup radioGroup,
-							int checkedId, int index)
-					{
-						System.out.println("Extra---- " + index
-								+ " checked!!! ");
-						currentIndex = index;
-//						updataTextColor(index);
-
-					}
-				});
+//		rgs = (RadioGroup) findViewById(R.id.tabs_rg);
+//		FragmentTabAdapter tabAdapter = new FragmentTabAdapter(this, fragments,
+//				R.id.tab_content, rgs);
+//		tabAdapter
+//				.setOnRgsExtraCheckedChangedListener(new FragmentTabAdapter.OnRgsExtraCheckedChangedListener()
+//				{
+//					@Override
+//					public void OnRgsExtraCheckedChanged(RadioGroup radioGroup,
+//							int checkedId, int index)
+//					{
+//						System.out.println("Extra---- " + index
+//								+ " checked!!! ");
+//						currentIndex = index;
+////						updataTextColor(index);
+//
+//					}
+//				});
 		// IntentFilter filter = new IntentFilter(CONNECTED_SUCESS);
 		// registerReceiver(mReceiver, filter);
 		// filter = new IntentFilter(CONNECTED_FAIL);
@@ -1285,6 +1347,12 @@ public class MainActivity extends FragmentActivity
 		filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
 		filter.addAction(MESSAGE_RECEIVED_ACTION);
 		registerReceiver(mMessageReceiver, filter);
+	}
+
+	@Override
+	public void onSelect(int index) 
+	{
+		mSlidingMenu.toggle( true );
 	}
 
 }

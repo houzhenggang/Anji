@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        android:id="@+id/llRoot"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <RadioButton
+            android:id="@+id/tv_scene"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="20dp"
+            android:button="@null"
+            android:drawableLeft="@drawable/selector_main"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:tag="0"
+            android:text="@string/tab_main"
+            android:textColor="@drawable/radio_text_color"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:background="#557a8d" />
+
+        <RadioButton
+            android:id="@+id/tv_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="20dp"
+            android:button="@null"
+            android:drawableLeft="@drawable/selector_main"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:tag="1"
+            android:text="@string/tab_group"
+            android:textColor="@drawable/radio_text_color"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:background="#557a8d" />
+
+        <RadioButton
+            android:id="@+id/tv_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="20dp"
+            android:button="@null"
+            android:drawableLeft="@drawable/selector_switch"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:tag="2"
+            android:text="@string/tab_switch"
+            android:textColor="@drawable/radio_text_color"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:background="#557a8d" />
+
+        <RadioButton
+            android:id="@+id/tv_sense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="20dp"
+            android:button="@null"
+            android:drawableLeft="@drawable/selector_sense"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:tag="3"
+            android:text="@string/tab_sense"
+            android:textColor="@drawable/radio_text_color"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:background="#557a8d" />
+
+        <RadioButton
+            android:id="@+id/tv_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="20dp"
+            android:button="@null"
+            android:drawableLeft="@drawable/selector_camera"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:tag="4"
+            android:text="@string/tab_camera"
+            android:textColor="@drawable/radio_text_color"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:background="#557a8d" />
+
+        <RadioButton
+            android:id="@+id/tv_telecontrol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="20dp"
+            android:button="@null"
+            android:drawableLeft="@drawable/selector_switch"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:tag="5"
+            android:text="@string/tab_telecontrol"
+            android:textColor="@drawable/radio_text_color"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</ScrollView>
