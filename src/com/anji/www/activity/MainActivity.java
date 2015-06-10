@@ -484,7 +484,7 @@ public class MainActivity extends SlidingFragmentActivity implements MenuEvent
 		mSlidingMenu.setFadeDegree(0.25f);
 		mSlidingMenu.setMode(SlidingMenu.LEFT);
 //		mSlidingMenu.setBackgroundImage(R.drawable.slidingmenu_bg);
-		mSlidingMenu.setBackgroundColor( getResources().getColor(R.color.white ) );
+//		mSlidingMenu.setBackgroundColor( getResources().getColor(R.color.white ) );
 		
 //		mSlidingMenu.setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
 //			@Override
