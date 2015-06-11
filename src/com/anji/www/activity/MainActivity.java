@@ -82,6 +82,7 @@ public class MainActivity extends SlidingFragmentActivity implements MenuEvent
 	private TabSwtich tabSwtich;
 	private TabSense tabSense;
 	private TabCamera tabCamera;
+	private TabControl tabControl;
 	private static UdpService myUdpService;
 	private Dialog progressDialog;
 	public static boolean isNeedRefresh;
@@ -516,11 +517,13 @@ public class MainActivity extends SlidingFragmentActivity implements MenuEvent
 		tabSwtich = new TabSwtich();
 		tabSense = new TabSense();
 		tabCamera = new TabCamera();
+		tabControl = new TabControl();
 		fragments.add( tabScene );
 		fragments.add(tabMain);
 		fragments.add(tabSwtich);
 		fragments.add(tabSense);
 		fragments.add(tabCamera);
+		fragments.add(tabControl);
 		
 //		tab_rb_main.setTextColor(getResources().getColor(
 //				R.color.title_background));
