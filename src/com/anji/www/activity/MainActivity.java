@@ -484,25 +484,25 @@ public class MainActivity extends SlidingFragmentActivity implements MenuEvent
 		mSlidingMenu.setFadeEnabled(false);
 		mSlidingMenu.setFadeDegree(0.25f);
 		mSlidingMenu.setMode(SlidingMenu.LEFT);
-//		mSlidingMenu.setBackgroundImage(R.drawable.slidingmenu_bg);
+		mSlidingMenu.setBackgroundImage(R.drawable.control_bg);
 //		mSlidingMenu.setBackgroundColor( getResources().getColor(R.color.white ) );
 		
-//		mSlidingMenu.setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
-//			@Override
-//			public void transformCanvas(Canvas canvas, float percentOpen) {
-//				float scale = (float) (percentOpen * 0.25 + 0.75);
-//				canvas.scale(scale, scale, -canvas.getWidth() / 2,
-//						canvas.getHeight() / 2);
-//			}
-//		});
-//
-//		mSlidingMenu.setAboveCanvasTransformer(new SlidingMenu.CanvasTransformer() {
-//			@Override
-//			public void transformCanvas(Canvas canvas, float percentOpen) {
-//				float scale = (float) (1 - percentOpen * 0.25);
-//				canvas.scale(scale, scale, 0, canvas.getHeight() / 2);
-//			}
-//		});
+		mSlidingMenu.setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
+			@Override
+			public void transformCanvas(Canvas canvas, float percentOpen) {
+				float scale = (float) (percentOpen * 0.25 + 0.75);
+				canvas.scale(scale, scale, -canvas.getWidth() / 2,
+						canvas.getHeight() / 2);
+			}
+		});
+
+		mSlidingMenu.setAboveCanvasTransformer(new SlidingMenu.CanvasTransformer() {
+			@Override
+			public void transformCanvas(Canvas canvas, float percentOpen) {
+				float scale = (float) (1 - percentOpen * 0.25);
+				canvas.scale(scale, scale, 0, canvas.getHeight() / 2);
+			}
+		});
 	}
 
 
