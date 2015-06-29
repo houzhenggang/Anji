@@ -93,6 +93,7 @@
     <string name="tab_sense">传感</string>
     <string name="tab_camera">摄像头</string>
     <string name="tab_telecontrol">遥控器</string>
+    <string name="tab_shop">商城</string>
     <string name="main_switch">总开关</string>
     <string name="search">搜索设备中...</string>
     <string name="normal_light">普通灯具</string>

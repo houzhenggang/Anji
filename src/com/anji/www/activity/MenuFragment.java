@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.anji.www.R;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -25,6 +27,7 @@ public class MenuFragment extends Fragment implements OnClickListener
 	private RadioButton tv_sense;
 	private RadioButton tv_camera;
 	private RadioButton tv_telecontrol;
+	private RadioButton tv_shop;
 	private ArrayList<RadioButton> tvViews = new ArrayList<RadioButton>();
 	
 	private int currentTab;
@@ -58,6 +61,7 @@ public class MenuFragment extends Fragment implements OnClickListener
 		tv_sense = (RadioButton) view.findViewById( R.id.tv_sense );
 		tv_camera = (RadioButton) view.findViewById( R.id.tv_camera );
 		tv_telecontrol = (RadioButton) view.findViewById( R.id.tv_telecontrol );
+		tv_shop = (RadioButton) view.findViewById( R.id.tv_shop );
 		
 		tv_scene.setOnClickListener( this );
 		tv_group.setOnClickListener( this );
@@ -65,6 +69,7 @@ public class MenuFragment extends Fragment implements OnClickListener
 		tv_sense.setOnClickListener( this );
 		tv_camera.setOnClickListener( this );
 		tv_telecontrol.setOnClickListener( this );
+		tv_shop.setOnClickListener( this );
 		
 		tvViews.add( tv_scene );
 		tvViews.add( tv_group );
@@ -80,6 +85,19 @@ public class MenuFragment extends Fragment implements OnClickListener
 	@Override
 	public void onClick(View v) 
 	{
+		if ( v.getId() == R.id.tv_shop )
+		{
+//			Intent it = new Intent(Intent.ACTION_VIEW, Uri.parse("http://weidian.com/s/333123846?sfr=c"));  
+//	        it.setClassName("com.android.browser", "com.android.browser.BrowserActivity");  
+//	        startActivity( it );  
+	        
+	        Intent intent = new Intent();        
+	        intent.setAction( Intent.ACTION_VIEW );    
+	        Uri content_url = Uri.parse( "http://weidian.com/s/333123846?sfr=c" );   
+	        intent.setData( content_url );  
+	        startActivity(intent);
+			return;
+		}
 		String stag = (String) v.getTag();
 		int tag = Integer.valueOf( stag );
 		if ( fragments == null || fragments.isEmpty() || tag >= fragments.size() )
