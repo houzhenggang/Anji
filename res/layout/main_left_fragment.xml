@@ -181,9 +181,9 @@
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
             android:paddingTop="5dp"
-            android:tag="5"
+            android:tag="6"
             android:text="@string/tab_shop"
-            android:textColor="@drawable/btn_text_color"
+            android:textColor="@drawable/radio_text_color"
             android:textSize="18sp" />
     </LinearLayout>
 

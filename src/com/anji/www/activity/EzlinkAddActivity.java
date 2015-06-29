@@ -54,11 +54,13 @@ public class EzlinkAddActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.bt_next_step:
 			String uid = et_uid.getText().toString().trim();
-			if (uid.length() == 20) {
+			if (uid.length() == 24) {
 
 				intent = new Intent(this, EzlinkSetInfoActivity.class);
 				intent.putExtra("camera_uid", uid);
+
 				startActivity(intent);
+				this.finish();
 			}
 
 			break;
@@ -90,7 +92,10 @@ public class EzlinkAddActivity extends BaseActivity implements OnClickListener {
 			if (requestCode == 0) {
 				String result = data.getStringExtra("result");
 				if (result.contains("u=") && result.contains("e=")) {
-					String realUid2 = result.substring(2, result.indexOf(";"));
+					// String realUid2 = result.substring(2,
+					// result.indexOf(";"));
+					String realUid2 = result.replace("u=", "").replace(";e=",
+							"");
 					et_uid.setText(realUid2);
 				} else {
 					ToastUtils.show(this, getString(R.string.not_camera));

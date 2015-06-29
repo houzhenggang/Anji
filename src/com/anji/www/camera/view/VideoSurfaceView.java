@@ -59,6 +59,14 @@ public class VideoSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 	/** 图片显示在画布上的区域（居中显示） */
 	private Rect dst;
 	private Bitmap mBit = null;
+	public Bitmap getmBit() {
+		return mBit;
+	}
+
+	public void setmBit(Bitmap mBit) {
+		this.mBit = mBit;
+	}
+
 	private Bitmap mDrawBit = null;
 
 	/** surface view width */

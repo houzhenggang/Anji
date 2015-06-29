@@ -71,8 +71,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/ezlink_shurukuang"
-                     />
+                    android:background="@drawable/ezlink_shurukuang" />
 
                 <EditText
                     android:id="@+id/et_wifi_password"
@@ -84,7 +83,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/ezlink_shurukuang"
                     android:hint="@string/wifi_pass"
-                    android:textColorHint="@color/item_text4" />
+                    android:textColorHint="@color/item_text4" android:inputType="textPassword"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -127,7 +126,8 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/ezlink_shurukuang"
                     android:hint="@string/old_pass"
-                    android:textColorHint="@color/item_text4" />
+                    android:textColorHint="@color/item_text4"
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/et_new_pass"
@@ -138,12 +138,14 @@
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/ezlink_shurukuang"
+                    android:inputType="textPassword"
                     android:hint="@string/new_pass"
                     android:textColorHint="@color/item_text4" />
 
                 <EditText
                     android:id="@+id/et_new_pass_again"
                     android:layout_width="fill_parent"
+                    android:inputType="textPassword"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/et_new_pass"
                     android:layout_marginLeft="40dp"
@@ -158,9 +160,9 @@
                 android:id="@+id/bt_connect"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
+                android:layout_marginBottom="30dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="30dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/btn_login_selector"
                 android:text="@string/connect"

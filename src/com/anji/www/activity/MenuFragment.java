@@ -77,6 +77,7 @@ public class MenuFragment extends Fragment implements OnClickListener
 		tvViews.add( tv_sense );
 		tvViews.add( tv_camera );
 		tvViews.add( tv_telecontrol );
+		tvViews.add( tv_shop );
 		
 		showTab( 0 );
 		return view;
@@ -85,19 +86,16 @@ public class MenuFragment extends Fragment implements OnClickListener
 	@Override
 	public void onClick(View v) 
 	{
-		if ( v.getId() == R.id.tv_shop )
-		{
-//			Intent it = new Intent(Intent.ACTION_VIEW, Uri.parse("http://weidian.com/s/333123846?sfr=c"));  
-//	        it.setClassName("com.android.browser", "com.android.browser.BrowserActivity");  
-//	        startActivity( it );  
-	        
-	        Intent intent = new Intent();        
-	        intent.setAction( Intent.ACTION_VIEW );    
-	        Uri content_url = Uri.parse( "http://weidian.com/s/333123846?sfr=c" );   
-	        intent.setData( content_url );  
-	        startActivity(intent);
-			return;
-		}
+//		if ( v.getId() == R.id.tv_shop )
+//		{
+//	        
+//	        Intent intent = new Intent();        
+//	        intent.setAction( Intent.ACTION_VIEW );    
+//	        Uri content_url = Uri.parse( "http://weidian.com/s/333123846?sfr=c" );   
+//	        intent.setData( content_url );  
+//	        startActivity(intent);
+//			return;
+//		}
 		String stag = (String) v.getTag();
 		int tag = Integer.valueOf( stag );
 		if ( fragments == null || fragments.isEmpty() || tag >= fragments.size() )

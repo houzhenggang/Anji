@@ -45,6 +45,13 @@ public class MyApplication extends Application
 		SDKInitializer.initialize(this);
 		// ≥ı ºªØ JPush
 	}
+	
+	@Override
+	public void onTerminate() {
+		// TODO Auto-generated method stub
+		FosSdkJNI.DeInit();
+		super.onTerminate();
+	}
 
 	public static Context getAppContext()
 	{

@@ -35,6 +35,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -229,6 +230,14 @@ public class CameraNew extends Activity implements View.OnClickListener,
 				Log.i("jerry", "OPEN_VIDEO_STATE------->"
 						+ Global.OPEN_VIDEO_STATE);
 				isLoginSucess = true;
+				Bitmap bit = mVideoSurfaceView.getmBit();
+				LogUtil.LogI(Tag, "bit != null==="+(bit != null));
+				if (bit != null) {
+					int width = bit.getWidth();
+					int hight = bit.getHeight();
+					LogUtil.LogI(Tag, "Í¼Ïñ¿íwidth =="+width);
+					LogUtil.LogI(Tag, "Í¼Ïñ¸ßhight=="+hight);
+				}
 				break;
 			case FosResult.FOSCMDRET_FAILD:
 				/** failed */
@@ -346,12 +355,14 @@ public class CameraNew extends Activity implements View.OnClickListener,
 	     
 		progressDialog = DisplayUtils.createDialog(mContext);
 		initInputDialog();
-//		width = (int) (width*1.2);
+		width = (int) (width*1.2);
 		rl_videoSurface = (RelativeLayout) findViewById(R.id.rl_videoSurface);
-//		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-//				(int) (vvHight * 420.00 / 240.00), vvHight);
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-				width, (int) (width * 240.00 / 420.00));
+				width,(int)(width * 240.00 / 420.00));
+//		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+//				width, (int) (width * 240.00 / 420.00));
+//		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+//				width,  (int) (width * 315.00 / 420.00));
 		rl_videoSurface.setLayoutParams(params);
 
 		ll_back = (LinearLayout) findViewById(R.id.ll_back);

@@ -69,7 +69,7 @@
             android:id="@+id/rl_videoSurface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/common_bg" >
+            android:background="@color/white" >
 
             <com.anji.www.camera.view.VideoSurfaceView
                 android:id="@+id/live_surface_view"
