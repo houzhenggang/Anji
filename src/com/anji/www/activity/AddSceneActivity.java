@@ -59,22 +59,22 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener, S
 	private static final String Tag = "AddGroupActivity";
 	private int iconType;// 0大厅，1婴儿房，2，浴室 3，卧室 4，厨房 5，老人房 6 书房
 	private List<DeviceInfo> switchList;
-	private List<DeviceInfo> sensorList;
+//	private List<DeviceInfo> sensorList;
 	private List<DeviceInfo> switchSelectList;// 选择的设备
-	private List<DeviceInfo> sensorSelectList;
+//	private List<DeviceInfo> sensorSelectList;
 	private GridView gv_switch;
-	private GridView gv_sensor;
+//	private GridView gv_sensor;
 
 	private SceneSwitchAdapter switchAdapter;
-	private SceneSensorAdapter sensorAdapter;
+//	private SceneSensorAdapter sensorAdapter;
 
 	private boolean[] selectSwitchResult;
 	private CustomMultiChoiceDialog.Builder switchDialogBuilder;
 	private CustomMultiChoiceDialog switchDialog;
 
-	private boolean[] selectSensorResult;
-	private CustomMultiChoiceDialog.Builder sensorDialogBuilder;
-	private CustomMultiChoiceDialog sensorDialog;
+//	private boolean[] selectSensorResult;
+//	private CustomMultiChoiceDialog.Builder sensorDialogBuilder;
+//	private CustomMultiChoiceDialog sensorDialog;
 
 	private String sceneName;
 	private Dialog progressDialog;
@@ -89,15 +89,15 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener, S
 		mContext = this;
 		setContentView(R.layout.activity_add_scene);
 		switchList = new ArrayList<DeviceInfo>();
-		sensorList = new ArrayList<DeviceInfo>();
+//		sensorList = new ArrayList<DeviceInfo>();
 
 		switchSelectList = new ArrayList<DeviceInfo>();
-		sensorSelectList = new ArrayList<DeviceInfo>();
+//		sensorSelectList = new ArrayList<DeviceInfo>();
 		initData();
 		initView();
 		initSetIconTypePop();
 		initSwitchChoiceDialog();
-		initSensorChoiceDialog();
+//		initSensorChoiceDialog();
 	}
 
 	/**
@@ -111,11 +111,11 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener, S
 			switchList.add(info);
 		}
 
-		for (int i = 0; i < MainActivity.sceneSensorList.size(); i++)
-		{
-			DeviceInfo info = MainActivity.sceneSensorList.get(i);
-			sensorList.add(info);
-		}
+//		for (int i = 0; i < MainActivity.sceneSensorList.size(); i++)
+//		{
+//			DeviceInfo info = MainActivity.sceneSensorList.get(i);
+//			sensorList.add(info);
+//		}
 	}
 
 	private void initView()
@@ -136,16 +136,16 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener, S
 		bt_right.setOnClickListener(this);
 
 		gv_switch = (GridView) findViewById(R.id.gv_switch);
-		gv_sensor = (GridView) findViewById(R.id.gv_sensor);
+//		gv_sensor = (GridView) findViewById(R.id.gv_sensor);
 		switchAdapter = new SceneSwitchAdapter(mContext, switchSelectList);
-		sensorAdapter = new SceneSensorAdapter(mContext, sensorSelectList);
+//		sensorAdapter = new SceneSensorAdapter(mContext, sensorSelectList);
 		gv_switch.setAdapter(switchAdapter);
-		gv_sensor.setAdapter(sensorAdapter);
+//		gv_sensor.setAdapter(sensorAdapter);
 		
 		switchAdapter.setEdit( true );
-		sensorAdapter.setEdit( true );
+//		sensorAdapter.setEdit( true );
 		switchAdapter.setEvent( this );
-		sensorAdapter.setEvent( this );
+//		sensorAdapter.setEvent( this );
 		
 		gv_switch.setOnItemClickListener(new GridView.OnItemClickListener()
 		{
@@ -388,45 +388,45 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener, S
 	/**
 	 * 初始化选择传感弹出框
 	 */
-	public void initSensorChoiceDialog()
-	{
-		selectSensorResult = new boolean[sensorList.size()];
-		sensorDialogBuilder = new CustomMultiChoiceDialog.Builder(this);
-		String[] sensroArr = new String[sensorList.size()];
-		for (int i = 0; i < sensorList.size(); i++)
-		{
-			sensroArr[i] = sensorList.get(i).getDeviceName();
-		}
-		sensorDialog = sensorDialogBuilder
-				.setTitle(getString(R.string.please_select_sensor))
-				.setMultiChoiceItems(sensroArr, selectSensorResult, null, true)
-				.setPositiveButton(getString(R.string.ok),
-						new DialogInterface.OnClickListener()
-						{
-
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which)
-							{
-								// TODO Auto-generated method stub
-								String s = "您选择了:";
-								selectSensorResult = sensorDialogBuilder
-										.getCheckedItems();
-								sensorSelectList.clear();
-								for (int i = 0; i < selectSensorResult.length; i++)
-								{
-									if (selectSensorResult[i])
-									{
-										sensorSelectList.add(sensorList.get(i));
-									}
-								}
-								mHandler.sendEmptyMessage( 0x0002 );
-								LogUtil.LogI(Tag, "sensorSelectList.size="
-										+ sensorSelectList.size());
-							}
-						}).setNegativeButton(getString(R.string.cancel), null)
-				.create();
-	}
+//	public void initSensorChoiceDialog()
+//	{
+//		selectSensorResult = new boolean[sensorList.size()];
+//		sensorDialogBuilder = new CustomMultiChoiceDialog.Builder(this);
+//		String[] sensroArr = new String[sensorList.size()];
+//		for (int i = 0; i < sensorList.size(); i++)
+//		{
+//			sensroArr[i] = sensorList.get(i).getDeviceName();
+//		}
+//		sensorDialog = sensorDialogBuilder
+//				.setTitle(getString(R.string.please_select_sensor))
+//				.setMultiChoiceItems(sensroArr, selectSensorResult, null, true)
+//				.setPositiveButton(getString(R.string.ok),
+//						new DialogInterface.OnClickListener()
+//						{
+//
+//							@Override
+//							public void onClick(DialogInterface dialog,
+//									int which)
+//							{
+//								// TODO Auto-generated method stub
+//								String s = "您选择了:";
+//								selectSensorResult = sensorDialogBuilder
+//										.getCheckedItems();
+//								sensorSelectList.clear();
+//								for (int i = 0; i < selectSensorResult.length; i++)
+//								{
+//									if (selectSensorResult[i])
+//									{
+//										sensorSelectList.add(sensorList.get(i));
+//									}
+//								}
+//								mHandler.sendEmptyMessage( 0x0002 );
+//								LogUtil.LogI(Tag, "sensorSelectList.size="
+//										+ sensorSelectList.size());
+//							}
+//						}).setNegativeButton(getString(R.string.cancel), null)
+//				.create();
+//	}
 
 
 	private void startAddGroupTask()
@@ -459,17 +459,17 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener, S
 			}
 
 			StringBuffer sensorBuffer = new StringBuffer();
-			if (sensorSelectList != null && sensorSelectList.size() > 0)
-			{
-				for (int i = 0; i < sensorSelectList.size(); i++)
-				{
-					if (i != 0)
-					{
-						sensorBuffer.append(",");
-					}
-					sensorBuffer.append(sensorSelectList.get(i).getDeviceId() + "-" + sensorSelectList.get(i).getDeviceState());
-				}
-			}
+//			if (sensorSelectList != null && sensorSelectList.size() > 0)
+//			{
+//				for (int i = 0; i < sensorSelectList.size(); i++)
+//				{
+//					if (i != 0)
+//					{
+//						sensorBuffer.append(",");
+//					}
+//					sensorBuffer.append(sensorSelectList.get(i).getDeviceId() + "-" + sensorSelectList.get(i).getDeviceState());
+//				}
+//			}
 
 			String groupName2 = null;
 			try
@@ -605,8 +605,8 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener, S
 				break;
 
 			case 0x0002:
-				sensorAdapter.setList(sensorSelectList);
-				sensorAdapter.notifyDataSetChanged();
+//				sensorAdapter.setList(sensorSelectList);
+//				sensorAdapter.notifyDataSetChanged();
 				break;
 			}
 		};
@@ -622,41 +622,41 @@ public class AddSceneActivity extends BaseActivity implements OnClickListener, S
 	@Override
 	public void onSensorDelete(int position) 
 	{
-		sensorSelectList.remove( position );
+//		sensorSelectList.remove( position );
 		mHandler.sendEmptyMessage( 0x0002 );
 	}
 
 	@Override
 	public void onSensorAdd( int position ) 
 	{
-		if (sensorSelectList != null)
-		{
-
-			if (sensorSelectList.size() == 0)
-			{
-				sensorDialog.show();
-			}
-			else
-			{
-				if (position == sensorSelectList.size())
-				{
-					sensorDialog.show();
-				}
-				else
-				{
-					DeviceInfo item = sensorSelectList.get(position);
-					if (item.getDeviceState() == 0)
-					{
-						item.setDeviceState( (byte)0x01 );
-					}
-					else
-					{
-						item.setDeviceState( (byte)0x00 );
-					}
-					mHandler.sendEmptyMessage( 0x0002 );
-				}
-			}
-		}
+//		if (sensorSelectList != null)
+//		{
+//
+//			if (sensorSelectList.size() == 0)
+//			{
+//				sensorDialog.show();
+//			}
+//			else
+//			{
+//				if (position == sensorSelectList.size())
+//				{
+//					sensorDialog.show();
+//				}
+//				else
+//				{
+//					DeviceInfo item = sensorSelectList.get(position);
+//					if (item.getDeviceState() == 0)
+//					{
+//						item.setDeviceState( (byte)0x01 );
+//					}
+//					else
+//					{
+//						item.setDeviceState( (byte)0x00 );
+//					}
+//					mHandler.sendEmptyMessage( 0x0002 );
+//				}
+//			}
+//		}
 	}
 
 }

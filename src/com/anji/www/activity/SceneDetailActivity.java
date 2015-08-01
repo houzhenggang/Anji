@@ -70,22 +70,22 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 	private String iconType;// 0大厅，1婴儿房，2，浴室 3，卧室 4，厨房 5，老人房 6 书房
 	private String selIconType;
 	private List<DeviceInfo> switchList;
-	private List<DeviceInfo> sensorList;
+//	private List<DeviceInfo> sensorList;
 	private List<DeviceInfo> switchSelectList;// 选择的设备
-	private List<DeviceInfo> sensorSelectList;
+//	private List<DeviceInfo> sensorSelectList;
 	private GridView gv_switch;
-	private GridView gv_sensor;
+//	private GridView gv_sensor;
 
 	private SceneSwitchAdapter switchAdapter;
-	private SceneSensorAdapter sensorAdapter;
+//	private SceneSensorAdapter sensorAdapter;
 
 	private boolean[] selectSwitchResult;
 	private CustomMultiChoiceDialog.Builder switchDialogBuilder;
 	private CustomMultiChoiceDialog switchDialog;
 
-	private boolean[] selectSensorResult;
-	private CustomMultiChoiceDialog.Builder sensorDialogBuilder;
-	private CustomMultiChoiceDialog sensorDialog;
+//	private boolean[] selectSensorResult;
+//	private CustomMultiChoiceDialog.Builder sensorDialogBuilder;
+//	private CustomMultiChoiceDialog sensorDialog;
 
 	private String sceneName;
 	private Dialog progressDialog;
@@ -107,15 +107,15 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 		mContext = this;
 		setContentView(R.layout.activity_add_scene);
 		switchList = new ArrayList<DeviceInfo>();
-		sensorList = new ArrayList<DeviceInfo>();
+//		sensorList = new ArrayList<DeviceInfo>();
 
 		switchSelectList = new ArrayList<DeviceInfo>();
-		sensorSelectList = new ArrayList<DeviceInfo>();
+//		sensorSelectList = new ArrayList<DeviceInfo>();
 		initData();
 		initView();
 		initSetIconTypePop();
 		initSwitchChoiceDialog();
-		initSensorChoiceDialog();
+//		initSensorChoiceDialog();
 		// 请求情景详情
 		startSceneDetail();
 	}
@@ -138,11 +138,11 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 			switchList.add(info);
 		}
 
-		for (int i = 0; i < MainActivity.sceneSensorList.size(); i++)
-		{
-			DeviceInfo info = MainActivity.sceneSensorList.get(i);
-			sensorList.add(info);
-		}
+//		for (int i = 0; i < MainActivity.sceneSensorList.size(); i++)
+//		{
+//			DeviceInfo info = MainActivity.sceneSensorList.get(i);
+//			sensorList.add(info);
+//		}
 	}
 
 	private void initView()
@@ -168,14 +168,14 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 		bt_delete_scene.setOnClickListener(this);
 
 		gv_switch = (GridView) findViewById(R.id.gv_switch);
-		gv_sensor = (GridView) findViewById(R.id.gv_sensor);
+//		gv_sensor = (GridView) findViewById(R.id.gv_sensor);
 		switchAdapter = new SceneSwitchAdapter(mContext, switchSelectList);
-		sensorAdapter = new SceneSensorAdapter(mContext, sensorSelectList);
+//		sensorAdapter = new SceneSensorAdapter(mContext, sensorSelectList);
 		gv_switch.setAdapter(switchAdapter);
-		gv_sensor.setAdapter(sensorAdapter);
+//		gv_sensor.setAdapter(sensorAdapter);
 		
 		switchAdapter.setEvent( this );
-		sensorAdapter.setEvent( this );
+//		sensorAdapter.setEvent( this );
 		
 		gv_switch.setOnItemClickListener(new GridView.OnItemClickListener()
 		{
@@ -325,7 +325,7 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 				bt_right.setText(R.string.finish);
 				
 				switchAdapter.setEdit( isEdit );
-				sensorAdapter.setEdit( isEdit );
+//				sensorAdapter.setEdit( isEdit );
 				
 				mHandler.sendEmptyMessage( 0x0003 );
 				mHandler.sendEmptyMessage( 0x0004 );
@@ -472,45 +472,45 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 	/**
 	 * 初始化选择传感弹出框
 	 */
-	public void initSensorChoiceDialog()
-	{
-		selectSensorResult = new boolean[sensorList.size()];
-		sensorDialogBuilder = new CustomMultiChoiceDialog.Builder(this);
-		String[] sensroArr = new String[sensorList.size()];
-		for (int i = 0; i < sensorList.size(); i++)
-		{
-			sensroArr[i] = sensorList.get(i).getDeviceName();
-		}
-		sensorDialog = sensorDialogBuilder
-				.setTitle(getString(R.string.please_select_sensor))
-				.setMultiChoiceItems(sensroArr, selectSensorResult, null, true)
-				.setPositiveButton(getString(R.string.ok),
-						new DialogInterface.OnClickListener()
-						{
-
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which)
-							{
-								// TODO Auto-generated method stub
-								String s = "您选择了:";
-								selectSensorResult = sensorDialogBuilder
-										.getCheckedItems();
-								sensorSelectList.clear();
-								for (int i = 0; i < selectSensorResult.length; i++)
-								{
-									if (selectSensorResult[i])
-									{
-										sensorSelectList.add(sensorList.get(i));
-									}
-								}
-								mHandler.sendEmptyMessage( 0x0002 );
-								LogUtil.LogI(Tag, "sensorSelectList.size="
-										+ sensorSelectList.size());
-							}
-						}).setNegativeButton(getString(R.string.cancel), null)
-				.create();
-	}
+//	public void initSensorChoiceDialog()
+//	{
+//		selectSensorResult = new boolean[sensorList.size()];
+//		sensorDialogBuilder = new CustomMultiChoiceDialog.Builder(this);
+//		String[] sensroArr = new String[sensorList.size()];
+//		for (int i = 0; i < sensorList.size(); i++)
+//		{
+//			sensroArr[i] = sensorList.get(i).getDeviceName();
+//		}
+//		sensorDialog = sensorDialogBuilder
+//				.setTitle(getString(R.string.please_select_sensor))
+//				.setMultiChoiceItems(sensroArr, selectSensorResult, null, true)
+//				.setPositiveButton(getString(R.string.ok),
+//						new DialogInterface.OnClickListener()
+//						{
+//
+//							@Override
+//							public void onClick(DialogInterface dialog,
+//									int which)
+//							{
+//								// TODO Auto-generated method stub
+//								String s = "您选择了:";
+//								selectSensorResult = sensorDialogBuilder
+//										.getCheckedItems();
+//								sensorSelectList.clear();
+//								for (int i = 0; i < selectSensorResult.length; i++)
+//								{
+//									if (selectSensorResult[i])
+//									{
+//										sensorSelectList.add(sensorList.get(i));
+//									}
+//								}
+//								mHandler.sendEmptyMessage( 0x0002 );
+//								LogUtil.LogI(Tag, "sensorSelectList.size="
+//										+ sensorSelectList.size());
+//							}
+//						}).setNegativeButton(getString(R.string.cancel), null)
+//				.create();
+//	}
 
 
 	private void startUpdateGroupTask()
@@ -543,17 +543,17 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 			}
 
 			StringBuffer sensorBuffer = new StringBuffer();
-			if (sensorSelectList != null && sensorSelectList.size() > 0)
-			{
-				for (int i = 0; i < sensorSelectList.size(); i++)
-				{
-					if (i != 0)
-					{
-						sensorBuffer.append(",");
-					}
-					sensorBuffer.append(sensorSelectList.get(i).getDeviceId() + "-" + sensorSelectList.get(i).getDeviceState());
-				}
-			}
+//			if (sensorSelectList != null && sensorSelectList.size() > 0)
+//			{
+//				for (int i = 0; i < sensorSelectList.size(); i++)
+//				{
+//					if (i != 0)
+//					{
+//						sensorBuffer.append(",");
+//					}
+//					sensorBuffer.append(sensorSelectList.get(i).getDeviceId() + "-" + sensorSelectList.get(i).getDeviceState());
+//				}
+//			}
 
 			String name = null;
 			try
@@ -621,19 +621,19 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 						datas.append( "," );
 					}
 					
-					size = sensorSelectList.size();
-					for ( int i=0;i<size;i++ )
-					{
-						info = sensorSelectList.get( i );
-						datas.append( "{" ).append( "\"deviceId\":" ).append( info.getDeviceId() ).append( "," );
-						datas.append( "\"deviceName\":\"" ).append( info.getDeviceName() ).append( "\"," );
-						datas.append( "\"deviceStatus\":" ).append( info.getDeviceState() ).append( "," );
-						if ( MyConstants.HUMAN_BODY_SENSOR == info.getDeviceType() )
-						{
-							datas.append( "\"deviceType\":" ).append( 2 ).append( "}" );
-						}
-						datas.append( "," );
-					}
+//					size = sensorSelectList.size();
+//					for ( int i=0;i<size;i++ )
+//					{
+//						info = sensorSelectList.get( i );
+//						datas.append( "{" ).append( "\"deviceId\":" ).append( info.getDeviceId() ).append( "," );
+//						datas.append( "\"deviceName\":\"" ).append( info.getDeviceName() ).append( "\"," );
+//						datas.append( "\"deviceStatus\":" ).append( info.getDeviceState() ).append( "," );
+//						if ( MyConstants.HUMAN_BODY_SENSOR == info.getDeviceType() )
+//						{
+//							datas.append( "\"deviceType\":" ).append( 2 ).append( "}" );
+//						}
+//						datas.append( "," );
+//					}
 					datas.delete( datas.length() - 1, datas.length() );
 					datas.append( "]" );
 					responseBase = datas.toString();
@@ -693,15 +693,15 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 				break;
 
 			case 0x0002:
-				sensorAdapter.setList(sensorSelectList);
-				sensorAdapter.notifyDataSetChanged();
+//				sensorAdapter.setList(sensorSelectList);
+//				sensorAdapter.notifyDataSetChanged();
 				break;
 			case 0x0003:
 				switchAdapter.notifyDataSetChanged();
 				break;
 
 			case 0x0004:
-				sensorAdapter.notifyDataSetChanged();
+//				sensorAdapter.notifyDataSetChanged();
 				break;
 			case 0x0005:
 				ToastUtils.show(mContext,
@@ -729,7 +729,7 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 	@Override
 	public void onSensorDelete(int position) 
 	{
-		sensorSelectList.remove( position );
+//		sensorSelectList.remove( position );
 		mHandler.sendEmptyMessage( 0x0002 );
 	}
 
@@ -740,35 +740,35 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 		{
 			return;
 		}
-		if (sensorSelectList != null)
-		{
-
-			if (sensorSelectList.size() == 0)
-			{
-				sensorDialog.show();
-			}
-			else
-			{
-				if (position == sensorSelectList.size())
-				{
-					sensorDialog.show();
-				}
-				else
-				{
-					DeviceInfo item = sensorAdapter.getList().get(position);
-					
-					if (item.getDeviceState() == 0)
-					{
-						item.setDeviceState( (byte)0x01 );
-					}
-					else
-					{
-						item.setDeviceState( (byte)0x00 );
-					}
-					mHandler.sendEmptyMessage( 0x0004 );
-				}
-			}
-		}
+//		if (sensorSelectList != null)
+//		{
+//
+//			if (sensorSelectList.size() == 0)
+//			{
+//				sensorDialog.show();
+//			}
+//			else
+//			{
+//				if (position == sensorSelectList.size())
+//				{
+//					sensorDialog.show();
+//				}
+//				else
+//				{
+//					DeviceInfo item = sensorAdapter.getList().get(position);
+//					
+//					if (item.getDeviceState() == 0)
+//					{
+//						item.setDeviceState( (byte)0x01 );
+//					}
+//					else
+//					{
+//						item.setDeviceState( (byte)0x00 );
+//					}
+//					mHandler.sendEmptyMessage( 0x0004 );
+//				}
+//			}
+//		}
 	}
 	
 	private void startSceneDetail()
@@ -830,7 +830,7 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 	private void parseData()
 	{
 		switchSelectList.clear();
-		sensorSelectList.clear();
+//		sensorSelectList.clear();
 		try
 		{
 			if ( TextUtils.isEmpty( responseBase ) )
@@ -878,13 +878,13 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 					
 					switchSelectList.add(info);
 				}
-				else
-				{
-					info.setDeviceType(MyConstants.HUMAN_BODY_SENSOR);
-					info.setType(1);// 0为开关，1为传感
-					
-					sensorSelectList.add(info);
-				}
+//				else
+//				{
+//					info.setDeviceType(MyConstants.HUMAN_BODY_SENSOR);
+//					info.setType(1);// 0为开关，1为传感
+//					
+//					sensorSelectList.add(info);
+//				}
 			}
 
 			
@@ -1009,7 +1009,7 @@ public class SceneDetailActivity extends BaseActivity implements OnClickListener
 			parseData();
 		}
 		switchAdapter.setEdit( isEdit );
-		sensorAdapter.setEdit( isEdit );
+//		sensorAdapter.setEdit( isEdit );
 		mHandler.sendEmptyMessage( 0x0003 );
 		mHandler.sendEmptyMessage( 0x0004 );
 	}
