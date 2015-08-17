@@ -236,7 +236,7 @@ public class SensorListAdapter extends BaseAdapter
 
 					if (item.getSensorState() == (byte) 0x10)
 					{
-						// спхк
+						// спялнМ
 						listItemView.img_state
 								.setBackgroundResource(R.drawable.icon_yanwu_abnor);
 					}
